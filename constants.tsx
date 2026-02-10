@@ -63,6 +63,8 @@ export const STEPS: Step[] = [
 ];
 
 export const PRICING_PLANS: PricingPlan[] = [
+
+  /*
   {
     id: 'starter',
     paddlePriceId: 'pri_01kgqdp514bf45kjd1rq39yx0h',
@@ -79,11 +81,12 @@ export const PRICING_PLANS: PricingPlan[] = [
     buttonText: 'empezar gratis',
     variant: 'outline'
   },
+  */
   {
     id: 'pro',
-    paddlePriceId: 'pri_01kgqd8cxfkth64xv64d50awpy',
-    name: 'Pase Infinito',
-    price: '$19',
+    paddlePriceId: 'pri_01kh48nyvjd7j3c8ggxxc3a924',
+    name: 'VIP',
+    price: '$3.99',
     period: 'mes',
     description: 'El estándar de oro para profesionales de la IA.',
     features: [
@@ -97,9 +100,11 @@ export const PRICING_PLANS: PricingPlan[] = [
     isPopular: true,
     variant: 'primary'
   },
+
+  /*
   {
     id: 'team',
-    paddlePriceId: 'pri_01kgqdn9h07nxe0hvfryfdrk1x',
+    paddlePriceId: 'pri_01kh48nyvjd7j3c8ggxxc3a924',
     name: 'Agency Hub',
     price: '$99',
     period: 'mes',
@@ -113,5 +118,5 @@ export const PRICING_PLANS: PricingPlan[] = [
     ],
     buttonText: 'contacto para equipos',
     variant: 'white'
-  }
+  }*/
 ];
