@@ -253,7 +253,7 @@ export const HomePage: React.FC = () => {
                         {TASKS.map((task, idx) => (
                             <Reveal key={task.id} delay={idx * 30}>
                                 <div className="flex items-center gap-2 px-3.5 py-2 bg-[#161618] border border-zinc-800 rounded-lg text-xs md:text-sm text-zinc-400 hover:border-zinc-600 hover:text-white transition-all cursor-default shadow-sm hover-lift">
-                                    <span className="grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100">{task.icon}</span>
+                                    <span className=" opacity-70 group-hover:grayscale-0 group-hover:opacity-100">{task.icon}</span>
                                     <span>{task.label}</span>
                                 </div>
                             </Reveal>
