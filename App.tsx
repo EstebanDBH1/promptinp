@@ -9,7 +9,6 @@ import { PromptsPage } from './pages/PromptsPage';
 import { DebugAuthPage } from './pages/DebugAuthPage';
 import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
-
 import { SuccessPage } from './pages/SuccessPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { PromptDetailPage } from './pages/PromptDetailPage';

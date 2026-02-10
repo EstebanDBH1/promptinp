@@ -61,7 +61,7 @@ export const PrivacyPage: React.FC = () => {
           <section>
             <h2 className="text-xl font-bold text-white mb-4">6. contacto</h2>
             <p className="mb-4">
-              Para cualquier duda sobre tu privacidad en vault.ai, puedes escribirnos a <span className="text-orange-500 underline">support@vault.ai</span>.
+              Para cualquier duda sobre tu privacidad en vault.ai, puedes escribirnos a <span className="text-orange-500 underline">eban112001@gmail.com</span>.
             </p>
           </section>
         </div>
