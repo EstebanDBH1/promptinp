@@ -1,7 +1,7 @@
-import React from 'react';
-import { Navbar } from '../components/Navbar';
-import { Footer } from '../components/Footer';
-import { PageTransition } from '../components/PageTransition';
+import React from "react";
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
+import { PageTransition } from "../components/PageTransition";
 
 export const PrivacyPage: React.FC = () => {
   return (
@@ -9,59 +9,118 @@ export const PrivacyPage: React.FC = () => {
       <Navbar />
 
       <PageTransition className="flex-1 w-full max-w-4xl mx-auto px-6 py-16">
-        <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">política de privacidad</h1>
-        <p className="text-sm text-zinc-500 mb-12">última actualización: febrero 2026</p>
+        <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+          política de privacidad
+        </h1>
+        <p className="text-sm text-zinc-500 mb-12">
+          última actualización: febrero 2026
+        </p>
 
         <div className="space-y-12 text-sm leading-relaxed">
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">1. recopilación de información</h2>
+            <h2 className="text-xl font-bold text-white mb-4">
+              1. responsable del tratamiento
+            </h2>
             <p className="mb-4">
-              En vault.ai, valoramos tu privacidad. Recopilamos datos mínimos necesarios para el funcionamiento del servicio:
+              Alpacka AI es un servicio operado por{" "}
+              <strong>Proyecto SaaS</strong>. Nos comprometemos a proteger tu
+              privacidad y a tratar tus datos personales de acuerdo con las
+              normativas internacionales de protección de datos.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-bold text-white mb-4">
+              2. recopilación de información
+            </h2>
+            <p className="mb-4">
+              Recopilamos los datos mínimos necesarios para el funcionamiento
+              del servicio:
             </p>
             <ul className="list-disc pl-5 space-y-2 text-zinc-400">
-              <li><strong className="text-zinc-300">Datos de Cuenta:</strong> Nombre y correo electrónico proporcionados durante el registro (vía Supabase Auth).</li>
-              <li><strong className="text-zinc-300">Datos de Pago:</strong> Procesados de forma segura a través de Paddle. vault.ai no almacena ni tiene acceso a tu información financiera completa (tarjetas de crédito).</li>
-              <li><strong className="text-zinc-300">Uso de la Plataforma:</strong> Prompts guardados en favoritos e historial de acceso para mejorar tu experiencia.</li>
+              <li>
+                <strong className="text-zinc-300">Datos de Cuenta:</strong>{" "}
+                Correo electrónico y nombre de usuario gestionados de forma
+                segura a través de nuestros proveedores de autenticación.
+              </li>
+              <li>
+                <strong className="text-zinc-300">Datos de Pago:</strong> Los
+                pagos son procesados externamente por <strong>Paddle</strong>.
+                Proyecto SaaS no almacena ni tiene acceso a los datos de tu
+                tarjeta de crédito o información bancaria sensible. Paddle actúa
+                como nuestro responsable de tratamiento para la facturación.
+              </li>
+              <li>
+                <strong className="text-zinc-300">Uso del Servicio:</strong>{" "}
+                Registro técnico de acceso y preferencias (prompts favoritos)
+                para garantizar la continuidad del servicio.
+              </li>
             </ul>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">2. uso de los datos</h2>
-            <p className="mb-4">
-              Toda la información recopilada se utiliza exclusivamente para:
-            </p>
+            <h2 className="text-xl font-bold text-white mb-4">
+              3. finalidad del tratamiento
+            </h2>
+            <p className="mb-4">Utilizamos tus datos para:</p>
             <ul className="list-disc pl-5 space-y-2 text-zinc-400">
-              <li>Gestionar tu suscripción y acceso a la biblioteca VIP.</li>
-              <li>Enviar actualizaciones críticas sobre el servicio o nuevos lanzamientos de prompts.</li>
-              <li>Prevenir el abuso de la plataforma y la piratería de contenidos.</li>
+              <li>Proporcionar acceso a la biblioteca de Alpacka AI.</li>
+              <li>
+                Procesar transacciones y gestionar suscripciones a través de
+                Paddle.
+              </li>
+              <li>
+                Cumplir con obligaciones legales de facturación y prevención del
+                fraude.
+              </li>
             </ul>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">3. cookies y tecnologías de rastreo</h2>
+            <h2 className="text-xl font-bold text-white mb-4">
+              4. cookies y rastreo
+            </h2>
             <p className="mb-4">
-              Utilizamos cookies esenciales para mantener tu sesión iniciada y cookies analíticas anónimas para entender cómo los usuarios interactúan con nuestra biblioteca, permitiéndonos optimizar la relevancia de nuestros prompts.
+              Utilizamos cookies esenciales para mantener tu sesión activa y
+              cookies de análisis para mejorar nuestra oferta de contenidos.
+              Puedes gestionar tus preferencias de cookies desde la
+              configuración de tu navegador.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">4. seguridad de los datos</h2>
+            <h2 className="text-xl font-bold text-white mb-4">
+              5. seguridad y retención
+            </h2>
             <p className="mb-4">
-              Implementamos protocolos de seguridad avanzados (SSL/TLS) para proteger la transferencia de datos. Sin embargo, recuerda que ninguna transmisión en internet es 100% segura. Recomendamos usar contraseñas robustas y no compartirlas.
+              Tus datos se almacenan de forma cifrada mediante protocolos
+              SSL/TLS. Mantendremos tu información personal solo mientras sea
+              necesario para prestar el servicio o para cumplir con
+              requerimientos legales (como registros fiscales de ventas en
+              Paddle).
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">5. tus derechos</h2>
+            <h2 className="text-xl font-bold text-white mb-4">
+              6. tus derechos (GDPR/RGPD)
+            </h2>
             <p className="mb-4">
-              Como usuario, tienes derecho a acceder, rectificar o solicitar la eliminación de tus datos personales en cualquier momento. Puedes realizar estas gestiones desde tu panel de ajustes o contactándonos directamente.
+              Tienes derecho a acceder, rectificar, portar o solicitar la
+              eliminación de tus datos. Para ejercer estos derechos o para
+              cualquier consulta sobre tu privacidad en el contexto de{" "}
+              <strong>Proyecto SaaS</strong>, puedes contactarnos directamente.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">6. contacto</h2>
+            <h2 className="text-xl font-bold text-white mb-4">7. contacto</h2>
             <p className="mb-4">
-              Para cualquier duda sobre tu privacidad en vault.ai, puedes escribirnos a <span className="text-orange-500 underline">eban112001@gmail.com</span>.
+              Si tienes dudas sobre esta política, escríbenos a:{" "}
+              <span className="text-orange-500 underline">
+                eban112001@gmail.com
+              </span>
+              .
             </p>
           </section>
         </div>

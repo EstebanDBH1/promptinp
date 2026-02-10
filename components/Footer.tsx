@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
 
         <div className="flex items-center gap-3">
           <Terminal className="w-4 h-4 text-zinc-500" />
-          <span className="text-zinc-500 text-xs md:text-sm font-bold">🦙.ai</span>
+          <span className="text-zinc-500 text-xs md:text-sm font-bold">Alpacka.ai</span>
           <Code2 className="w-4 h-4 text-zinc-500 hover:text-white cursor-pointer" />
         </div>
 
@@ -20,11 +20,7 @@ export const Footer: React.FC = () => {
           <Link to="/prompts" className="hover:text-zinc-300 transition-colors">biblioteca</Link>
           <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-zinc-300 transition-colors">inicio</button>
           <Link to="/privacy" className="hover:text-zinc-300 transition-colors">privacidad</Link>
-          <Link to="/terms" className="hover:text-zinc-300 transition-colors">términos</Link>
-
-          <button className="flex items-center gap-1 hover:text-zinc-300">
-            ES ES <span className="text-xs">▼</span>
-          </button>
+          <Link to="/terms" className="hover:text-zinc-300 transition-colors">términos de servicio</Link>
         </div>
 
       </div>
