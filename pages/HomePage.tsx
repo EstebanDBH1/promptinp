@@ -298,7 +298,7 @@ export const HomePage: React.FC = () => {
                             </div>
                         </Reveal>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1">
                             {PRICING_PLANS.map((plan, idx) => {
                                 // Aseguramos que la comparación ignore nulos y sea estricta
                                 const isCurrentPlan = subscription &&
