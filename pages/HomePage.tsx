@@ -268,7 +268,7 @@ export const HomePage: React.FC = () => {
                 {/* Features Section */}
                 <section className="w-full py-16 px-6">
                     <Reveal>
-                        <h2 className="text-center text-xl font-bold mb-12">¿por qué usar vault.ai?</h2>
+                        <h2 className="text-center text-xl font-bold mb-12">¿por qué usar este banco de prompts?</h2>
                     </Reveal>
                     <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
                         {FEATURES.map((feature, idx) => (
