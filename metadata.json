@@ -1,0 +1,5 @@
+{
+  "name": "rentahuman.ai Clone",
+  "description": "A faithful recreation of the rentahuman.ai landing and login pages using React, Tailwind CSS, and a dark aesthetic.",
+  "requestFramePermissions": []
+}
