@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
 
         <div className="flex items-center gap-3">
           <Terminal className="w-4 h-4 text-zinc-500" />
-          <span className="text-zinc-500 text-xs md:text-sm font-bold">vault.ai</span>
+          <span className="text-zinc-500 text-xs md:text-sm font-bold">🦙.ai</span>
           <Code2 className="w-4 h-4 text-zinc-500 hover:text-white cursor-pointer" />
         </div>
 
