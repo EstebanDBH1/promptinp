@@ -13,12 +13,9 @@ export const DebugAuthPage: React.FC = () => {
         const checkSession = async () => {
             try {
                 const { data, error } = await supabase.auth.getSession();
-                console.log('🔐 Debug - Session data:', data);
-                console.log('🔐 Debug - Session error:', error);
                 setSessionData(data);
                 if (error) setError(error.message);
             } catch (err: any) {
-                console.error('🔐 Debug - Error getting session:', err);
                 setError(err.message);
             }
         };

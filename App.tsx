@@ -12,19 +12,28 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 
 import { SuccessPage } from './pages/SuccessPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { PromptDetailPage } from './pages/PromptDetailPage';
 
 function AnimatedRoutes() {
   const location = useLocation();
 
   return (
     <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
+      <Routes location={location}>
         <Route path="/" element={<HomePage />} />
         <Route
           path="/prompts"
           element={
             <ProtectedRoute>
               <PromptsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/prompts/:id"
+          element={
+            <ProtectedRoute>
+              <PromptDetailPage />
             </ProtectedRoute>
           }
         />

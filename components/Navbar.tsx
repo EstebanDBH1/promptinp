@@ -31,8 +31,7 @@ export const Navbar: React.FC<NavbarProps> = ({ hideNavLinks = false }) => {
       <div className="flex items-center gap-2">
         <Link to="/" className="flex items-center gap-2 group">
           <Terminal className="w-6 h-6 text-orange-500 group-hover:text-white transition-colors" />
-          <span className="font-bold text-lg tracking-tight">alpacka.ai</span>
-          <Sparkles className="w-5 h-5 text-purple-400 group-hover:rotate-12 transition-transform" />
+          <span className="font-bold text-lg tracking-tight">🦙¿.ai</span>
         </Link>
       </div>
 

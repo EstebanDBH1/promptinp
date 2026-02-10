@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getPaddle } from '../lib/paddle';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { Button } from '../components/Button';
@@ -9,6 +10,7 @@ import { PageTransition } from '../components/PageTransition';
 import { Reveal } from '../components/Reveal';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { supabase } from '../lib/supabase';
 import { usePaddleCheckout } from '../hooks/usePaddleCheckout';
 import { useUserSubscription } from '../hooks/useUserSubscription';
 
@@ -19,11 +21,133 @@ const Stat: React.FC<{ value: string; label: string; color?: string }> = ({ valu
     </div>
 );
 
+const CategoryPill: React.FC<{ label: string }> = ({ label }) => {
+    const navigate = useNavigate();
+    const getIcon = (cat: string) => {
+        const c = cat.toLowerCase();
+        if (c.includes('ingeniería')) return '💻';
+        if (c.includes('marketing')) return '✍️';
+        if (c.includes('imagen')) return '🎨';
+        if (c.includes('código')) return '⚛️';
+        if (c.includes('carrera') || c.includes('personal')) return '🚀';
+        if (c.includes('legal')) return '⚖️';
+        if (c.includes('data')) return '📊';
+        return '🤖';
+    };
+
+    return (
+        <div
+            onClick={() => navigate(`/prompts?category=${encodeURIComponent(label)}`)}
+            className="flex items-center gap-2 px-3.5 py-2 bg-[#161618] border border-zinc-800 rounded-lg text-xs md:text-sm text-zinc-400 hover:border-zinc-600 hover:text-white transition-all cursor-pointer shadow-sm hover-lift group"
+        >
+            <span className="opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all">
+                {getIcon(label)}
+            </span>
+            <span>{label.toLowerCase()}</span>
+        </div>
+    );
+};
+
 export const HomePage: React.FC = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
     const { openCheckout } = usePaddleCheckout();
     const { subscription } = useUserSubscription();
+    const [displayPrices, setDisplayPrices] = useState<Record<string, string>>({});
+    const [dbPrompts, setDbPrompts] = useState<any[]>([]);
+    const [dbCategories, setDbCategories] = useState<string[]>([]);
+    const [loadingPrompts, setLoadingPrompts] = useState(true);
+
+    // Fetch prompts from Supabase
+    useEffect(() => {
+        const fetchDBPrompts = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('prompts')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(8);
+
+                if (error) throw error;
+                if (data) {
+                    const mapped = data.map(p => ({
+                        id: p.id,
+                        title: p.title,
+                        description: p.description || p.content.substring(0, 150) + '...',
+                        content: p.content,
+                        category: p.category,
+                        author: '@system',
+                        price: p.is_premium ? 'Premium' : 'Free',
+                        tags: [p.category],
+                        avatarUrl: `https://api.dicebear.com/7.x/avataaars/svg?seed=${p.id}`,
+                        modelIcon: p.category?.toLowerCase() === 'ingeniería' ? '💻' :
+                            p.category?.toLowerCase() === 'marketing' ? '✍️' :
+                                p.category?.toLowerCase() === 'imagen' ? '🎨' :
+                                    p.category?.toLowerCase() === 'código' ? '⚛️' : '🤖',
+                        imageUrl: p.image_url
+                    }));
+                    setDbPrompts(mapped);
+                }
+
+                // FETCH ALL CATEGORIES (without limit)
+                const { data: allCats, error: catError } = await supabase
+                    .from('prompts')
+                    .select('category');
+
+                if (allCats) {
+                    const uniqueCats = Array.from(new Set(allCats.map(p => p.category)))
+                        .filter(Boolean)
+                        .sort() as string[];
+                    setDbCategories(uniqueCats);
+                }
+            } catch (err) {
+                console.error('Error fetching data for home:', err);
+            } finally {
+                setLoadingPrompts(false);
+            }
+        };
+        fetchDBPrompts();
+    }, []);
+
+    // Fetch actual prices from Paddle
+    useEffect(() => {
+        const fetchPrices = async () => {
+            const paddle = await getPaddle();
+            if (!paddle) return;
+
+            try {
+                const items = PRICING_PLANS
+                    .filter(p => p.paddlePriceId)
+                    .map(p => ({ priceId: p.paddlePriceId!, quantity: 1 }));
+
+                if (items.length === 0) return;
+
+                const preview = await paddle.PricePreview({ items });
+
+                const priceMap: Record<string, string> = {};
+                const lineItems = (preview as any).data?.details?.line_items || (preview as any).data?.details?.lineItems;
+
+                if (lineItems && Array.isArray(lineItems)) {
+                    lineItems.forEach((item: any) => {
+                        const pId = item.price_id || item.priceId;
+                        const total = item.totals?.total_formatted || item.totals?.totalFormatted;
+                        if (pId && total) {
+                            priceMap[pId] = total;
+                        }
+                    });
+                    setDisplayPrices(priceMap);
+                } else {
+                    console.warn('⚠️ [Pricing] Paddle devolvió una respuesta vacía o sin items.');
+                }
+            } catch (err) {
+                console.error('❌ [Pricing] Error crítico en PricePreview (Probable bloqueo de Paddle):', err);
+                console.log('💡 Tip: Ve a Paddle Dashboard -> Checkout Setting -> "Allowed Domains" y añade "http://localhost:3000"');
+            }
+
+        };
+
+        fetchPrices();
+    }, []);
 
     return (
         <div className="min-h-screen bg-[#050505] flex flex-col font-mono selection:bg-orange-500/30">
@@ -35,42 +159,42 @@ export const HomePage: React.FC = () => {
                 <section className="w-full max-w-5xl mx-auto px-6 pt-16 pb-24 text-center">
                     <Reveal>
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 mb-8 hover:border-zinc-700 transition-colors cursor-default">
-                            <span className="text-xs md:text-sm text-zinc-300">la capa de lenguaje para IA</span>
-                            <Sparkles className="w-3 h-3 text-purple-400" />
+                            <span className="text-xs md:text-sm text-zinc-300">biblioteca de prompts exclusiva</span>
+                            <Sparkles className="w-3 h-3 text-orange-400" />
                         </div>
                     </Reveal>
 
                     <Reveal delay={100}>
                         <div className="text-xs md:text-sm text-zinc-600 mb-8 font-medium">
-                            los modelos alucinan • los prompts definen la realidad
+                            los modelos son mediocres • los prompts VIP los hacen excepcionales
                         </div>
                     </Reveal>
 
                     <Reveal delay={200}>
                         <div className="flex justify-center gap-8 md:gap-16 mb-12 flex-wrap">
-                            <Stat value="2.1M+" label="prompts copiados" />
-                            <Stat value="15k+" label="ingenieros activos" />
-                            <Stat value="99.9%" label="tasa de éxito" />
+                            <Stat value="1,200+" label="prompts premium" />
+                            <Stat value="45+" label="categorías expertas" />
+                            <Stat value="Semanal" label="actualizaciones VIP" />
                         </div>
                     </Reveal>
 
                     <Reveal delay={300}>
                         <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight tracking-tight">
-                            tu modelo necesita <span className="text-orange-500">mejores</span><br />
-                            <span className="text-orange-500">palabras</span>
+                            Tu modelo necesita <span className="text-orange-500">mejores</span><br />
+                            <span className="text-orange-500">instrucciones</span>
                         </h1>
                     </Reveal>
 
                     <Reveal delay={400}>
                         <p className="text-zinc-400 max-w-2xl mx-auto mb-10 text-sm md:text-base leading-relaxed">
-                            Deja de luchar con resultados mediocres. Encuentra prompts de ingeniería profesional, probados y optimizados para producción.
+                            Accede a la colección privada de prompts más avanzada. Copia y pega ingeniería de prompts profesional, probada para extraer el 100% de GPT-4, Claude y Midjourney.
                         </p>
                     </Reveal>
 
                     <Reveal delay={500}>
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <Button variant="primary" size="lg" className="w-full sm:w-auto">explorar biblioteca →</Button>
-                            <Button variant="outline" size="lg" className="w-full sm:w-auto">vender mis prompts</Button>
+                            <Button variant="primary" size="lg" className="w-full sm:w-auto" onClick={() => navigate('/prompts')}>explorar biblioteca VIP →</Button>
+                            <Button variant="outline" size="lg" className="w-full sm:w-auto" onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}>planes de acceso</Button>
                         </div>
                     </Reveal>
                 </section>
@@ -95,11 +219,17 @@ export const HomePage: React.FC = () => {
                                     {/* Spacer for centering on large screens if needed, otherwise flows left */}
                                     <div className="w-0 md:w-[calc(50vw-42rem)] hidden xl:block"></div>
 
-                                    {PROMPTS.map((prompt, idx) => (
-                                        <div key={prompt.id} className="w-[300px] snap-center" style={{ animationDelay: `${idx * 100}ms` }}>
-                                            <PromptCard prompt={prompt} />
-                                        </div>
-                                    ))}
+                                    {loadingPrompts ? (
+                                        [1, 2, 3, 4].map((i) => (
+                                            <div key={i} className="w-[300px] h-[260px] bg-zinc-900/50 animate-pulse rounded-2xl border border-zinc-800" />
+                                        ))
+                                    ) : (
+                                        dbPrompts.map((prompt, idx) => (
+                                            <div key={prompt.id} className="w-[300px] snap-center" style={{ animationDelay: `${idx * 100}ms` }}>
+                                                <PromptCard prompt={prompt} />
+                                            </div>
+                                        ))
+                                    )}
                                 </div>
                             </div>
 
@@ -118,16 +248,16 @@ export const HomePage: React.FC = () => {
                                 <div className="flex-1">
                                     <div className="flex items-center gap-2 mb-3">
                                         <div className="w-8 h-8 rounded bg-zinc-800 flex items-center justify-center">
-                                            <Bot className="w-5 h-5 text-purple-400" />
+                                            <Sparkles className="w-5 h-5 text-orange-400" />
                                         </div>
-                                        <h3 className="text-lg font-bold text-white">para desarrolladores</h3>
+                                        <h3 className="text-lg font-bold text-white">Únete a la Élite</h3>
                                     </div>
                                     <p className="text-xs md:text-sm text-zinc-400 mb-8 leading-relaxed">
-                                        API RESTful para inyectar prompts dinámicos. Integración nativa con LangChain y Vercel AI SDK. Deja que tu app use los mejores prompts sin hardcodear strings.
+                                        No pierdas el tiempo probando prompts básicos. Nuestra biblioteca está diseñada para profesionales que exigen resultados perfectos. Acceso instantáneo a las técnicas más avanzadas de la industria.
                                     </p>
                                     <div className="flex flex-wrap gap-3">
-                                        <Button variant="primary" size="md">documentación API</Button>
-                                        <Button variant="outline" size="md">integración MCP</Button>
+                                        <Button variant="primary" size="md" onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}>obtener acceso completo</Button>
+                                        <Button variant="outline" size="md" onClick={() => navigate('/prompts')}>ver muestras gratis</Button>
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +268,7 @@ export const HomePage: React.FC = () => {
                 {/* Features Section */}
                 <section className="w-full py-16 px-6">
                     <Reveal>
-                        <h2 className="text-center text-xl font-bold mb-12">¿por qué usar promptbank?</h2>
+                        <h2 className="text-center text-xl font-bold mb-12">¿por qué usar vault.ai?</h2>
                     </Reveal>
                     <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
                         {FEATURES.map((feature, idx) => (
@@ -156,7 +286,7 @@ export const HomePage: React.FC = () => {
                 </section>
 
                 {/* Pricing Section */}
-                <section className="w-full py-24 px-6 relative overflow-hidden">
+                <section id="pricing" className="w-full py-24 px-6 relative overflow-hidden">
                     {/* Ambient Background Glow */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-orange-500/5 blur-[120px] rounded-full pointer-events-none" />
 
@@ -170,7 +300,14 @@ export const HomePage: React.FC = () => {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             {PRICING_PLANS.map((plan, idx) => {
-                                const isCurrentPlan = subscription?.price_id === plan.paddlePriceId;
+                                // Aseguramos que la comparación ignore nulos y sea estricta
+                                const isCurrentPlan = subscription &&
+                                    subscription.price_id === plan.paddlePriceId &&
+                                    (subscription.subscription_status === 'active' || subscription.subscription_status === 'trialing');
+
+                                if (isCurrentPlan) {
+                                    console.log('✅ Plan actual detectado:', plan.name, 'ID:', plan.paddlePriceId);
+                                }
 
                                 const handlePlanClick = () => {
                                     if (isCurrentPlan) return;
@@ -204,7 +341,11 @@ export const HomePage: React.FC = () => {
                                             <div className="mb-8">
                                                 <h3 className="text-lg font-bold text-white mb-2">{plan.name}</h3>
                                                 <div className="flex items-baseline gap-1.5 mb-2">
-                                                    <span className="text-4xl font-bold text-white tracking-tight">{plan.price}</span>
+                                                    <span className="text-4xl font-bold text-white tracking-tight">
+                                                        {plan.paddlePriceId && displayPrices[plan.paddlePriceId]
+                                                            ? displayPrices[plan.paddlePriceId]
+                                                            : plan.price}
+                                                    </span>
                                                     <span className="text-sm font-medium text-zinc-500">/{plan.period}</span>
                                                 </div>
                                                 <p className="text-xs md:text-sm text-zinc-400 leading-relaxed min-h-[40px]">{plan.description}</p>
@@ -240,21 +381,26 @@ export const HomePage: React.FC = () => {
                     </div>
                 </section>
 
-                {/* Use Cases Section */}
+                {/* Use Cases Section (Static Selection) */}
                 <section className="w-full py-16 px-6 bg-[#0a0a0a] border-t border-white/5">
                     <Reveal>
                         <div className="text-center mb-10">
-                            <h2 className="text-xl font-bold text-white mb-2 font-mono">casos de uso reales</h2>
-                            <p className="text-xs md:text-sm text-zinc-500">optimiza cualquier tarea cognitiva</p>
+                            <h2 className="text-xl font-bold text-white mb-2 font-mono">categorías en la bóveda</h2>
+                            <p className="text-xs md:text-sm text-zinc-500">megaprompts optimizados para cada necesidad</p>
                         </div>
                     </Reveal>
 
                     <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-3">
                         {TASKS.map((task, idx) => (
                             <Reveal key={task.id} delay={idx * 30}>
-                                <div className="flex items-center gap-2 px-3.5 py-2 bg-[#161618] border border-zinc-800 rounded-lg text-xs md:text-sm text-zinc-400 hover:border-zinc-600 hover:text-white transition-all cursor-default shadow-sm hover-lift">
-                                    <span className=" opacity-70 group-hover:grayscale-0 group-hover:opacity-100">{task.icon}</span>
-                                    <span>{task.label}</span>
+                                <div
+                                    onClick={() => navigate(`/prompts?category=${encodeURIComponent(task.label)}`)}
+                                    className="flex items-center gap-2 px-3.5 py-2 bg-[#161618] border border-zinc-800 rounded-lg text-xs md:text-sm text-zinc-400 hover:border-zinc-600 hover:text-white transition-all cursor-pointer shadow-sm hover-lift group"
+                                >
+                                    <span className="opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all">
+                                        {task.icon}
+                                    </span>
+                                    <span>{task.label.toLowerCase()}</span>
                                 </div>
                             </Reveal>
                         ))}
@@ -292,7 +438,7 @@ export const HomePage: React.FC = () => {
                         <h2 className="text-2xl font-bold text-white mb-3">domina la ingeniería de prompts</h2>
                         <p className="text-xs md:text-sm text-zinc-500 mb-8 max-w-md mx-auto">Únete a miles de ingenieros y creadores que están construyendo el futuro del software.</p>
                         <div className="flex justify-center gap-4">
-                            <Button variant="primary" size="lg">empezar ahora →</Button>
+                            <Button variant="primary" size="lg" onClick={() => navigate('/login')}>empezar ahora →</Button>
                         </div>
                     </Reveal>
                 </section>

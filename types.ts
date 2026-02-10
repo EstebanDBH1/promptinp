@@ -11,6 +11,7 @@ export interface PromptProfile {
   modelIcon: string;
   description: string;
   content: string; // Added content field for the actual prompt
+  imageUrl?: string; // Optional image for Image category prompts
 }
 
 export interface Feature {

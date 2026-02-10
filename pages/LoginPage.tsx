@@ -15,9 +15,7 @@ export const LoginPage: React.FC = () => {
 
     // Redirect if already logged in
     useEffect(() => {
-        console.log('🔐 LoginPage - user state:', { user: user?.email, authLoading });
         if (user && !authLoading) {
-            console.log('🔐 LoginPage - Redirecting to /prompts');
             navigate('/prompts');
         }
     }, [user, authLoading, navigate]);

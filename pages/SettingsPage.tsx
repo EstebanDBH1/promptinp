@@ -53,6 +53,12 @@ export const SettingsPage: React.FC = () => {
                                             {user?.email}
                                         </div>
                                     </div>
+                                    <div className="flex flex-col gap-1">
+                                        <label className="text-xs text-zinc-600 uppercase tracking-tighter opacity-50 font-mono">Debug: User ID</label>
+                                        <div className="text-[10px] text-zinc-500 font-mono">
+                                            {user?.id}
+                                        </div>
+                                    </div>
                                 </div>
                             </section>
                         </Reveal>

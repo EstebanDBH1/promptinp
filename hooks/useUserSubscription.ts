@@ -15,21 +15,47 @@ export const useUserSubscription = () => {
         }
 
         const fetchSubscription = async () => {
-            const { data, error } = await supabase
-                .from('subscriptions')
-                .select('*')
-                .eq('customer_id', user.id)
-                .in('subscription_status', ['active', 'trialing'])
-                .order('created_at', { ascending: false })
-                .limit(1)
-                .maybeSingle();
+            try {
+                setLoading(true);
 
-            if (error) {
-                console.error('Error fetching subscription:', error);
-            } else {
+                // 1. Try to find subscription by customer_id directly (Supabase User ID)
+                let { data, error } = await supabase
+                    .from('subscriptions')
+                    .select('*')
+                    .eq('customer_id', user.id)
+                    .in('subscription_status', ['active', 'trialing', 'past_due'])
+                    .order('created_at', { ascending: false })
+                    .limit(1)
+                    .maybeSingle();
+
+                // 2. If no direct match, try searching by email in the customers table
+                if (!data && user.email) {
+                    const { data: customerData } = await supabase
+                        .from('customers')
+                        .select('customer_id')
+                        .eq('email', user.email);
+
+                    if (customerData && customerData.length > 0) {
+                        const ids = customerData.map(c => c.customer_id);
+                        const { data: subData } = await supabase
+                            .from('subscriptions')
+                            .select('*')
+                            .in('customer_id', ids)
+                            .in('subscription_status', ['active', 'trialing', 'past_due'])
+                            .order('created_at', { ascending: false })
+                            .limit(1)
+                            .maybeSingle();
+
+                        data = subData;
+                    }
+                }
+
                 setSubscription(data);
+            } catch (err) {
+                console.error('❌ Critical error in useUserSubscription:', err);
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
         };
 
         fetchSubscription();

@@ -20,7 +20,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     useEffect(() => {
         // Get initial session
         supabase.auth.getSession().then(({ data: { session }, error }) => {
-            console.log('🔐 Initial session check:', { session: !!session, user: session?.user?.email, error });
             setSession(session);
             setUser(session?.user ?? null);
             setLoading(false);
@@ -30,7 +29,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const {
             data: { subscription },
         } = supabase.auth.onAuthStateChange((event, session) => {
-            console.log('🔐 Auth state change:', { event, session: !!session, user: session?.user?.email });
             setSession(session);
             setUser(session?.user ?? null);
             setLoading(false);
@@ -40,7 +38,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, []);
 
     const signInWithGoogle = async () => {
-        console.log('🔐 Starting Google sign in...');
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
@@ -54,7 +51,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const signOut = async () => {
-        console.log('🔐 Signing out...');
         const { error } = await supabase.auth.signOut();
         if (error) {
             console.error('🔐 Error signing out:', error.message);

@@ -6,19 +6,25 @@ export const usePaddleCheckout = () => {
 
     const openCheckout = async (priceId: string) => {
         const paddle = await getPaddle();
-        if (!paddle || !user) return;
+        if (!paddle) return;
 
         paddle.Checkout.open({
-            items: [{ priceId, quantity: 1 }],
-            customer: { email: user.email || '' },
-            customData: { supabase_user_id: user.id },
             settings: {
                 displayMode: 'overlay',
                 theme: 'dark',
-                locale: 'es',
                 successUrl: `${window.location.origin}/success`,
             },
-        });
+            customer: user?.email ? { email: user.email } : undefined,
+            customData: {
+                supabase_user_id: user?.id
+            },
+            items: [
+                {
+                    priceId: priceId,
+                    quantity: 1
+                }
+            ]
+        } as any);
     };
 
     const openCustomerPortal = async (subscriptionId: string, customerAuthToken: string) => {
