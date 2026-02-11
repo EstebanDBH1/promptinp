@@ -209,7 +209,7 @@ export const HomePage: React.FC = () => {
                         */}
 
           <Reveal delay={300}>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight tracking-tight">
+            <h1 className="text-3xl md:text-6xl font-bold text-white mb-6 leading-tight tracking-tight">
               El 100% de la capacidad de tu IA está{" "}
               <span className="text-orange-500">bloqueado</span> tras un mal
               prompt.{" "}
