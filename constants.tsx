@@ -1,69 +1,88 @@
-import { Zap, Bot, Leaf, Terminal, Sparkles, Brain, Code, PenTool, Image as ImageIcon, MessageSquare, Search, Database } from 'lucide-react';
-import { PromptProfile, Feature, Task, Step, PricingPlan } from './types';
+import {
+  Zap,
+  Bot,
+  Leaf,
+  Terminal,
+  Sparkles,
+  Brain,
+  Code,
+  PenTool,
+  Image as ImageIcon,
+  MessageSquare,
+  Search,
+  Database,
+} from "lucide-react";
+import { PromptProfile, Feature, Task, Step, PricingPlan } from "./types";
 
 export const PROMPTS: PromptProfile[] = [];
 
 export const FEATURES: Feature[] = [
   {
-    id: '1',
+    id: "1",
     icon: Sparkles,
-    title: 'Bibliotecas VIP',
-    description: 'Prompts exclusivos que no encontrarás en ningún foro público o repositorio gratuito.',
+    title: "Bibliotecas VIP",
+    description:
+      "Prompts exclusivos que no encontrarás en ningún foro público o repositorio gratuito.",
   },
   {
-    id: '2',
+    id: "2",
     icon: Zap,
-    title: 'Resultados Inmediatos',
-    description: 'Instrucciones diseñadas para obtener la respuesta perfecta al primer intento.',
+    title: "Resultados Inmediatos",
+    description:
+      "Instrucciones diseñadas para obtener la respuesta perfecta al primer intento.",
   },
   {
-    id: '3',
+    id: "3",
     icon: Brain,
-    title: 'Ingeniería Inversa',
-    description: 'Cada prompt ha sido refinado con técnicas de CoT y Few-Shot para máxima precisión.',
+    title: "Ingeniería Inversa",
+    description:
+      "Cada prompt ha sido refinado con técnicas de CoT y Few-Shot para máxima precisión.",
   },
 ];
 
 export const TASKS: Task[] = [
-  { id: '1', label: 'Ingeniería', icon: '💻' },
-  { id: '2', label: 'Marketing', icon: '✍️' },
-  { id: '3', label: 'Imagen', icon: '🎨' },
-  { id: '4', label: 'Código', icon: '⚛️' },
-  { id: '5', label: 'Carrera', icon: '🚀' },
-  { id: '6', label: 'Negocios', icon: '📈' },
-  { id: '7', label: 'Legal', icon: '⚖️' },
-  { id: '8', label: 'Academia', icon: '🎓' },
-  { id: '9', label: 'Creatividad', icon: '💡' },
-  { id: '10', label: 'Escritura', icon: '📝' },
-  { id: '11', label: 'Social Media', icon: '📱' },
-  { id: '12', label: 'Data Analysis', icon: '📊' },
+  { id: "1", label: "Ingeniería", icon: "💻" },
+  { id: "2", label: "Marketing", icon: "✍️" },
+  { id: "3", label: "Imagen", icon: "🎨" },
+  { id: "4", label: "Código", icon: "⚛️" },
+  { id: "5", label: "Carrera", icon: "🚀" },
+  { id: "6", label: "Negocios", icon: "📈" },
+  { id: "7", label: "Legal", icon: "⚖️" },
+  { id: "8", label: "Academia", icon: "🎓" },
+  { id: "9", label: "Creatividad", icon: "💡" },
+  { id: "10", label: "Escritura", icon: "📝" },
+  { id: "11", label: "Social Media", icon: "📱" },
+  { id: "12", label: "Data Analysis", icon: "📊" },
 ];
 
 export const STEPS: Step[] = [
   {
     id: 1,
-    title: 'Explora la Colección',
-    description: 'Filtra por categoría: desde marketing viral hasta desarrollo de software complejo.',
+    title: "Explora la Colección",
+    description:
+      "Filtra por categoría: desde marketing viral hasta desarrollo de software complejo.",
   },
   {
     id: 2,
-    title: 'Extrae el Código',
-    description: 'Copia el prompt optimizado para el modelo que estés usando (GPT-4, Claude 3.5, etc).',
+    title: "Extrae el Código",
+    description:
+      "Copia el prompt optimizado para el modelo que estés usando (GPT-4, Claude 3.5, etc).",
   },
   {
     id: 3,
-    title: 'Pega y Domina',
-    description: 'Inserta la instrucción en tu chat y observa cómo la IA eleva su nivel de respuesta.',
+    title: "Pega y Domina",
+    description:
+      "Inserta la instrucción en tu chat y observa cómo la IA eleva su nivel de respuesta.",
   },
   {
     id: 4,
-    title: 'Ahorra Horas de Trabajo',
-    description: 'Elimina el "ensayo y error". Obtén resultados profesionales en segundos.',
+    title: "Ahorra Horas de Trabajo",
+    description:
+      'Elimina el "ensayo y error". Obtén resultados profesionales en segundos.',
   },
 ];
 
 export const PRICING_PLANS: PricingPlan[] = [
-
   /*
   {
     id: 'starter',
@@ -83,22 +102,22 @@ export const PRICING_PLANS: PricingPlan[] = [
   },
   */
   {
-    id: 'pro',
-    paddlePriceId: 'pri_01kh48nyvjd7j3c8ggxxc3a924',
-    name: 'VIP',
-    price: '$3.99',
-    period: 'mes',
-    description: 'El estándar de oro para profesionales de la IA.',
+    id: "pro",
+    paddlePriceId: "pri_01kh48nyvjd7j3c8ggxxc3a924",
+    name: "VIP",
+    price: "$3.99",
+    period: "mes",
+    description: "El estándar de oro para profesionales de la IA.",
     features: [
-      'Acceso total a +1,000 prompts',
-      'Nuevos prompts VIP cada semana',
-      'Biblioteca privada de favoritos',
-      'Filtros de búsqueda avanzada',
-      'Soporte prioritario 1-on-1'
+      "Acceso total a +1,000 prompts",
+      "Nuevos prompts VIP cada semana",
+      "Biblioteca privada de favoritos",
+      "Filtros de búsqueda avanzada",
+      "Soporte prioritario 1-on-1",
     ],
-    buttonText: 'obtener acceso total',
+    buttonText: "obtener acceso total",
     isPopular: true,
-    variant: 'primary'
+    variant: "primary",
   },
 
   /*
