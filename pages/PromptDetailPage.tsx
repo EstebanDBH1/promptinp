@@ -9,7 +9,8 @@ import { supabase } from '../lib/supabase';
 import { ArrowLeft, Copy, Check, Lock, Sparkles, User, Tag } from 'lucide-react';
 import { PageTransition } from '../components/PageTransition';
 import { Reveal } from '../components/Reveal';
-import { useUserSubscription } from '../hooks/useUserSubscription';
+// import { useUserSubscription } from '../hooks/useUserSubscription';
+import { useSubscription } from '../features/subscription/hooks/useSubscription';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
@@ -17,7 +18,7 @@ import remarkBreaks from 'remark-breaks';
 export const PromptDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const { subscription, loading: subLoading } = useUserSubscription();
+    const { subscription, loading: subLoading } = useSubscription();
 
     const [prompt, setPrompt] = useState<PromptProfile | null>(null);
     const [loading, setLoading] = useState(true);
@@ -104,8 +105,8 @@ export const PromptDetailPage: React.FC = () => {
     }
 
     const isPremium = prompt.price === 'Premium';
-    // Strict check: User must have an active subscription to see ANY megaprompt content
-    const hasAccess = !!subscription;
+    // Access logic: Free prompts are open to everyone. Premium require an active subscription.
+    const hasAccess = !isPremium || !!subscription;
 
     return (
         <div className="min-h-screen bg-[#050505] flex flex-col font-mono selection:bg-orange-500/30">
@@ -201,16 +202,16 @@ export const PromptDetailPage: React.FC = () => {
                                             <div className="w-16 h-16 bg-orange-500/10 rounded-full flex items-center justify-center mb-6 border border-orange-500/20">
                                                 <Lock className="w-8 h-8 text-orange-500" />
                                             </div>
-                                            <h2 className="text-xl font-bold text-white mb-2 uppercase tracking-tight">Acceso Reservado</h2>
+                                            <h2 className="text-xl font-bold text-white mb-2 uppercase tracking-tight">Prompt Premium</h2>
                                             <p className="text-xs md:text-sm text-zinc-400 mb-8 max-w-xs leading-relaxed">
-                                                no hemos detectado una suscripción activa. obtén el pase infinito para desbloquear la ingeniería de prompts completa.
+                                                este prompt es exclusivo para miembros premium. obtén una suscripción activa para desbloquear este y cientos de megaprompts más.
                                             </p>
                                             <div className="flex flex-col gap-3 w-full max-w-xs">
                                                 <Button variant="primary" size="lg" onClick={() => navigate('/#pricing')}>
-                                                    Ver planes de acceso
+                                                    Suscribirme ahora
                                                 </Button>
                                                 <p className="text-[10px] text-zinc-600 italic">
-                                                    ¿acabas de suscribirte? intenta recargar la página.
+                                                    ¿ya tienes suscripción? intenta iniciar sesión.
                                                 </p>
                                             </div>
                                         </div>

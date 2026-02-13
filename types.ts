@@ -43,5 +43,5 @@ export interface PricingPlan {
   buttonText: string;
   isPopular?: boolean;
   variant: 'outline' | 'primary' | 'white';
-  paddlePriceId?: string; // Optional ID for Paddle checkout
+  paypalPlanId?: string; // Optional ID for PayPal checkout
 }

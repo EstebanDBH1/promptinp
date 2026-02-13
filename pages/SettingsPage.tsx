@@ -3,20 +3,21 @@ import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { Button } from '../components/Button';
 import { useAuth } from '../contexts/AuthContext';
-import { useUserSubscription } from '../hooks/useUserSubscription';
+// import { useUserSubscription } from '../hooks/useUserSubscription';
 import { PRICING_PLANS } from '../constants';
 import { PageTransition } from '../components/PageTransition';
 import { Reveal } from '../components/Reveal';
 import { User, CreditCard, Settings as SettingsIcon, ExternalLink, Shield } from 'lucide-react';
 
-import { usePaddleCheckout } from '../hooks/usePaddleCheckout';
+// import { usePaddleCheckout } from '../hooks/usePaddleCheckout';
+import { useSubscription } from '../features/subscription/hooks/useSubscription';
 
 export const SettingsPage: React.FC = () => {
     const { user } = useAuth();
-    const { subscription, loading } = useUserSubscription();
-    const { openCustomerPortal } = usePaddleCheckout();
+    const { subscription, loading, cancel } = useSubscription();
+    // const { openCustomerPortal } = usePaddleCheckout();
 
-    const currentPlan = PRICING_PLANS.find(p => p.paddlePriceId === subscription?.price_id);
+    const currentPlan = PRICING_PLANS.find(p => p.paypalPlanId === subscription?.price_id);
 
     return (
         <div className="min-h-screen bg-[#050505] flex flex-col font-mono selection:bg-orange-500/30">
@@ -94,7 +95,9 @@ export const SettingsPage: React.FC = () => {
                                             </div>
                                             <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tighter ${subscription?.subscription_status === 'active'
                                                 ? 'bg-green-500/10 text-green-500 border border-green-500/20'
-                                                : 'bg-zinc-800 text-zinc-400'
+                                                : subscription?.subscription_status === 'cancelled'
+                                                    ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20'
+                                                    : 'bg-zinc-800 text-zinc-400'
                                                 }`}>
                                                 {subscription?.subscription_status || 'Sin suscripción'}
                                             </div>
@@ -102,38 +105,80 @@ export const SettingsPage: React.FC = () => {
 
                                         {subscription && (
                                             <div className="space-y-6">
+                                                {/* Subscription Dates */}
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div className="p-4 rounded-xl bg-zinc-900/20 border border-zinc-800/30">
+                                                        <div className="text-xs text-zinc-500 mb-1">Inicio</div>
+                                                        <div className="text-sm font-mono text-white">
+                                                            {new Date(subscription.created_at).toLocaleDateString('es-ES', {
+                                                                year: 'numeric',
+                                                                month: 'short',
+                                                                day: 'numeric'
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                    <div className="p-4 rounded-xl bg-zinc-900/20 border border-zinc-800/30">
+                                                        <div className="text-xs text-zinc-500 mb-1">
+                                                            {subscription.cancel_at_period_end ? 'Termina' : 'Próxima renovación'}
+                                                        </div>
+                                                        <div className="text-sm font-mono text-white">
+                                                            {subscription.current_period_end
+                                                                ? new Date(subscription.current_period_end).toLocaleDateString('es-ES', {
+                                                                    year: 'numeric',
+                                                                    month: 'short',
+                                                                    day: 'numeric'
+                                                                })
+                                                                : 'N/A'
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {subscription.cancel_at_period_end && (
+                                                    <div className="p-4 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
+                                                        <p className="text-xs text-yellow-500/80">
+                                                            ⚠️ Tu suscripción se cancelará al final del período actual. Tendrás acceso hasta {subscription.current_period_end
+                                                                ? new Date(subscription.current_period_end).toLocaleDateString('es-ES')
+                                                                : 'la fecha de renovación'
+                                                            }.
+                                                        </p>
+                                                    </div>
+                                                )}
+
                                                 <div className="p-4 rounded-xl bg-orange-500/5 border border-orange-500/10">
                                                     <p className="text-xs text-zinc-400 mb-4 leading-relaxed">
-                                                        Gestiona tu suscripción, métodos de pago y facturación de forma segura a través de nuestro portal oficial de Paddle.
+                                                        {subscription.cancel_at_period_end
+                                                            ? 'Tu suscripción ya está programada para cancelarse.'
+                                                            : 'Puedes cancelar tu suscripción en cualquier momento. Mantendrás el acceso hasta el final del período de facturación actual.'
+                                                        }
                                                     </p>
-
                                                     <div className="flex flex-col gap-3">
+                                                        {!subscription.cancel_at_period_end && (
+                                                            <Button
+                                                                variant="outline"
+                                                                fullWidth
+                                                                onClick={async () => {
+                                                                    if (confirm('¿Estás seguro de que quieres cancelar tu suscripción? Mantendrás acceso hasta el final del período actual.')) {
+                                                                        const result = await cancel();
+                                                                        if (result.success) {
+                                                                            alert('Suscripción cancelada exitosamente.');
+                                                                            window.location.reload();
+                                                                        } else {
+                                                                            alert('Error al cancelar: ' + (result.error || 'Desconocido'));
+                                                                        }
+                                                                    }
+                                                                }}
+                                                            >
+                                                                Cancelar Suscripción
+                                                            </Button>
+                                                        )}
                                                         <Button
                                                             variant="primary"
                                                             fullWidth
-                                                            className="justify-between group"
-                                                            onClick={() => {
-                                                                if (subscription.customer_token) {
-                                                                    openCustomerPortal(subscription.subscription_id, subscription.customer_token);
-                                                                } else if (subscription.update_url) {
-                                                                    window.open(subscription.update_url, '_blank');
-                                                                } else {
-                                                                    alert('No se pudo abrir el portal automático. Por favor, usa el link de tu correo de confirmación de Paddle.');
-                                                                }
-                                                            }}
+                                                            onClick={() => window.open('https://www.paypal.com/myaccount/autopay', '_blank')}
                                                         >
-                                                            <span>Abrir Panel de Gestión</span>
-                                                            <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                                                            Gestionar en PayPal
                                                         </Button>
-
-                                                        {subscription.cancel_url && (
-                                                            <button
-                                                                className="text-xs text-zinc-600 hover:text-red-500 transition-colors underline underline-offset-4 w-full text-center py-2"
-                                                                onClick={() => window.open(subscription.cancel_url, '_blank')}
-                                                            >
-                                                                ¿Deseas cancelar tu suscripción? Hazlo aquí
-                                                            </button>
-                                                        )}
                                                     </div>
                                                 </div>
 

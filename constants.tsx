@@ -86,7 +86,7 @@ export const PRICING_PLANS: PricingPlan[] = [
   /*
   {
     id: 'starter',
-    paddlePriceId: 'pri_01kgqdp514bf45kjd1rq39yx0h',
+    paypalPlanId: '...', // Free tier logic or different ID
     name: 'Explorador',
     price: '$0',
     period: 'siempre',
@@ -103,7 +103,7 @@ export const PRICING_PLANS: PricingPlan[] = [
   */
   {
     id: "pro",
-    paddlePriceId: "pri_01kh48nyvjd7j3c8ggxxc3a924",
+    paypalPlanId: import.meta.env.VITE_PAYPAL_PLAN_ID,
     name: "VIP",
     price: "$3.99",
     period: "mes",
@@ -123,7 +123,7 @@ export const PRICING_PLANS: PricingPlan[] = [
   /*
   {
     id: 'team',
-    paddlePriceId: 'pri_01kh48nyvjd7j3c8ggxxc3a924',
+    paypalPlanId: '...', 
     name: 'Agency Hub',
     price: '$99',
     period: 'mes',

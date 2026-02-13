@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
 import { TermsPage } from './pages/TermsPage';
@@ -12,6 +13,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { SuccessPage } from './pages/SuccessPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { PromptDetailPage } from './pages/PromptDetailPage';
+import { CheckoutPage } from './pages/CheckoutPage';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -20,27 +22,21 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location}>
         <Route path="/" element={<HomePage />} />
-        <Route
-          path="/prompts"
-          element={
-            <ProtectedRoute>
-              <PromptsPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/prompts/:id"
-          element={
-            <ProtectedRoute>
-              <PromptDetailPage />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/prompts" element={<PromptsPage />} />
+        <Route path="/prompts/:id" element={<PromptDetailPage />} />
         <Route
           path="/success"
           element={
             <ProtectedRoute>
               <SuccessPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout/:planId"
+          element={
+            <ProtectedRoute>
+              <CheckoutPage />
             </ProtectedRoute>
           }
         />
@@ -64,12 +60,22 @@ function AnimatedRoutes() {
 }
 
 function App() {
+  const initialOptions = {
+    clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
+    currency: "USD",
+    intent: "subscription",
+    vault: true,
+    components: "buttons,card-fields"
+  };
+
   return (
-    <AuthProvider>
-      <Router>
-        <AnimatedRoutes />
-      </Router>
-    </AuthProvider>
+    <PayPalScriptProvider options={initialOptions}>
+      <AuthProvider>
+        <Router>
+          <AnimatedRoutes />
+        </Router>
+      </AuthProvider>
+    </PayPalScriptProvider>
   );
 }
 

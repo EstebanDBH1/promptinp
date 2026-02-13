@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@paddle/paddle-js": "^1.6.2",
+    "@paypal/react-paypal-js": "^8.9.2",
     "@supabase/supabase-js": "^2.95.3",
     "framer-motion": "^12.34.0",
     "lucide-react": "^0.563.0",

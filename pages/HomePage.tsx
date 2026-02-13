@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getPaddle } from "../lib/paddle";
+// import { getPaddle } from "../lib/paddle"; // Removed Paddle
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { Button } from "../components/Button";
@@ -8,11 +8,12 @@ import { PROMPTS, FEATURES, TASKS, STEPS, PRICING_PLANS } from "../constants";
 import { ArrowRight, Bot, Sparkles, Check } from "lucide-react";
 import { PageTransition } from "../components/PageTransition";
 import { Reveal } from "../components/Reveal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { supabase } from "../lib/supabase";
-import { usePaddleCheckout } from "../hooks/usePaddleCheckout";
-import { useUserSubscription } from "../hooks/useUserSubscription";
+// import { usePaddleCheckout } from "../hooks/usePaddleCheckout";
+import { useSubscription } from "../features/subscription/hooks/useSubscription";
+import { PayPalSubscriptionButton } from "../features/subscription/components/PayPalSubscriptionButton";
 
 const Stat: React.FC<{ value: string; label: string; color?: string }> = ({
   value,
@@ -59,8 +60,8 @@ const CategoryPill: React.FC<{ label: string }> = ({ label }) => {
 export const HomePage: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { openCheckout } = usePaddleCheckout();
-  const { subscription } = useUserSubscription();
+  // const { openCheckout } = usePaddleCheckout();
+  const { subscription } = useSubscription();
   const [displayPrices, setDisplayPrices] = useState<Record<string, string>>(
     {},
   );
@@ -125,55 +126,15 @@ export const HomePage: React.FC = () => {
     fetchDBPrompts();
   }, []);
 
-  // Fetch actual prices from Paddle
+  // Fetch actual prices from Paddle - REMOVED for PayPal migration
+  /*
   useEffect(() => {
     const fetchPrices = async () => {
-      const paddle = await getPaddle();
-      if (!paddle) return;
-
-      try {
-        const items = PRICING_PLANS.filter((p) => p.paddlePriceId).map((p) => ({
-          priceId: p.paddlePriceId!,
-          quantity: 1,
-        }));
-
-        if (items.length === 0) return;
-
-        const preview = await paddle.PricePreview({ items });
-
-        const priceMap: Record<string, string> = {};
-        const lineItems =
-          (preview as any).data?.details?.line_items ||
-          (preview as any).data?.details?.lineItems;
-
-        if (lineItems && Array.isArray(lineItems)) {
-          lineItems.forEach((item: any) => {
-            const pId = item.price_id || item.priceId;
-            const total =
-              item.totals?.total_formatted || item.totals?.totalFormatted;
-            if (pId && total) {
-              priceMap[pId] = total;
-            }
-          });
-          setDisplayPrices(priceMap);
-        } else {
-          console.warn(
-            "⚠️ [Pricing] Paddle devolvió una respuesta vacía o sin items.",
-          );
-        }
-      } catch (err) {
-        console.error(
-          "❌ [Pricing] Error crítico en PricePreview (Probable bloqueo de Paddle):",
-          err,
-        );
-        console.log(
-          '💡 Tip: Ve a Paddle Dashboard -> Checkout Setting -> "Allowed Domains" y añade "http://localhost:3000"',
-        );
-      }
+       // ... Paddle logic removed
     };
-
     fetchPrices();
   }, []);
+  */
 
   return (
     <div className="min-h-screen bg-[#050505] flex flex-col font-mono selection:bg-orange-500/30">
@@ -263,13 +224,13 @@ export const HomePage: React.FC = () => {
                     curados por expertos en LLMs
                   </p>
                 </div>
-                <a
-                  href="#/prompts"
+                <Link
+                  to="/prompts"
                   className="text-orange-500 text-xs md:text-sm font-bold hover:text-orange-400 flex items-center gap-1 group"
                 >
                   ver todo{" "}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                </a>
+                </Link>
               </div>
 
               {/* Horizontal Scroll Container */}
@@ -280,20 +241,20 @@ export const HomePage: React.FC = () => {
 
                   {loadingPrompts
                     ? [1, 2, 3, 4].map((i) => (
-                        <div
-                          key={i}
-                          className="w-[300px] h-[260px] bg-zinc-900/50 animate-pulse rounded-2xl border border-zinc-800"
-                        />
-                      ))
+                      <div
+                        key={i}
+                        className="w-[300px] h-[260px] bg-zinc-900/50 animate-pulse rounded-2xl border border-zinc-800"
+                      />
+                    ))
                     : dbPrompts.map((prompt, idx) => (
-                        <div
-                          key={prompt.id}
-                          className="w-[300px] snap-center"
-                          style={{ animationDelay: `${idx * 100}ms` }}
-                        >
-                          <PromptCard prompt={prompt} />
-                        </div>
-                      ))}
+                      <div
+                        key={prompt.id}
+                        className="w-[300px] snap-center"
+                        style={{ animationDelay: `${idx * 100}ms` }}
+                      >
+                        <PromptCard prompt={prompt} />
+                      </div>
+                    ))}
                 </div>
               </div>
 
@@ -399,42 +360,22 @@ export const HomePage: React.FC = () => {
             <div className="grid grid-cols-1 md:w-[400px] mx-auto  ">
               {PRICING_PLANS.map((plan, idx) => {
                 // Aseguramos que la comparación ignore nulos y sea estricta
+                // Aseguramos que la comparación ignore nulos y sea estricta
                 const isCurrentPlan =
                   subscription &&
-                  subscription.price_id === plan.paddlePriceId &&
+                  subscription.price_id === plan.paypalPlanId && // Check price_id against paypalPlanId
                   (subscription.subscription_status === "active" ||
                     subscription.subscription_status === "trialing");
-
-                if (isCurrentPlan) {
-                  console.log(
-                    "✅ Plan actual detectado:",
-                    plan.name,
-                    "ID:",
-                    plan.paddlePriceId,
-                  );
-                }
-
-                const handlePlanClick = () => {
-                  if (isCurrentPlan) return;
-                  if (!user) {
-                    navigate("/login");
-                    return;
-                  }
-                  if (plan.paddlePriceId) {
-                    openCheckout(plan.paddlePriceId);
-                  }
-                };
 
                 return (
                   <Reveal key={plan.id} delay={idx * 150}>
                     <div
                       className={`
                                             relative flex flex-col p-8 rounded-2xl border transition-all duration-300 h-full hover-lift
-                                            ${
-                                              plan.isPopular
-                                                ? "bg-[#18181b] border-orange-500/50 shadow-2xl shadow-orange-900/10 md:-translate-y-4"
-                                                : "bg-[#0a0a0a] border-zinc-800 hover:border-zinc-700"
-                                            }
+                                            ${plan.isPopular
+                          ? "bg-[#18181b] border-orange-500/50 shadow-2xl shadow-orange-900/10 md:-translate-y-4"
+                          : "bg-[#0a0a0a] border-zinc-800 hover:border-zinc-700"
+                        }
                                             ${isCurrentPlan ? "ring-2 ring-orange-500" : ""}
                                         `}
                     >
@@ -450,10 +391,7 @@ export const HomePage: React.FC = () => {
                         </h3>
                         <div className="flex items-baseline gap-1.5 mb-2">
                           <span className="text-4xl font-bold text-white tracking-tight">
-                            {plan.paddlePriceId &&
-                            displayPrices[plan.paddlePriceId]
-                              ? displayPrices[plan.paddlePriceId]
-                              : plan.price}
+                            {plan.price}
                           </span>
                           <span className="text-sm font-medium text-zinc-500">
                             /{plan.period}
@@ -484,15 +422,38 @@ export const HomePage: React.FC = () => {
                         </ul>
                       </div>
 
-                      <Button
-                        variant={isCurrentPlan ? "outline" : plan.variant}
-                        fullWidth
-                        size="lg"
-                        onClick={handlePlanClick}
-                        disabled={isCurrentPlan}
-                      >
-                        {isCurrentPlan ? "plan actual" : plan.buttonText}
-                      </Button>
+                      {isCurrentPlan ? (
+                        <Button
+                          variant="outline"
+                          fullWidth
+                          size="lg"
+                          disabled
+                        >
+                          plan actual
+                        </Button>
+                      ) : !user ? (
+                        <Button
+                          variant={plan.variant}
+                          fullWidth
+                          size="lg"
+                          onClick={() => navigate('/login')}
+                        >
+                          {plan.buttonText}
+                        </Button>
+                      ) : plan.paypalPlanId ? (
+                        <div className="w-full">
+                          <PayPalSubscriptionButton planId={plan.paypalPlanId} onSuccess={() => navigate('/success')} />
+                        </div>
+                      ) : (
+                        <Button
+                          variant={plan.variant}
+                          fullWidth
+                          size="lg"
+                          disabled
+                        >
+                          No disponible
+                        </Button>
+                      )}
                     </div>
                   </Reveal>
                 );

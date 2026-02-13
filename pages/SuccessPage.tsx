@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useUserSubscription } from '../hooks/useUserSubscription';
+// import { useUserSubscription } from '../hooks/useUserSubscription';
+import { useSubscription } from '../features/subscription/hooks/useSubscription';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { Button } from '../components/Button';
@@ -10,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const SuccessPage: React.FC = () => {
     const navigate = useNavigate();
-    const { subscription, loading: subLoading } = useUserSubscription();
+    const { subscription, loading: subLoading } = useSubscription();
     const [syncing, setSyncing] = useState(true);
     const [retryCount, setRetryCount] = useState(0);
 

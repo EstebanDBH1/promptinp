@@ -30,7 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({ hideNavLinks = false }) => {
     }
   };
 
-  const menuItems = [{ label: "explorar", path: "/prompts" }];
+  const menuItems = [{ label: "prompts", path: "/prompts" }];
 
   return (
     <nav className="w-full py-4 px-6 md:px-8 flex items-center justify-between border-b border-white/5 bg-[#050505]/80 backdrop-blur-md sticky top-0 z-50">
