@@ -27,7 +27,7 @@ export const CheckoutPage: React.FC = () => {
     if (!plan || !user) return null;
 
     return (
-        <div className="min-h-screen bg-[#050505] font-mono selection:bg-orange-500/30 flex flex-col">
+        <div className="min-h-screen bg-[#050505] font-sans selection:bg-orange-500/30 flex flex-col">
             <Navbar />
 
             <main className="flex-1 w-full max-w-6xl mx-auto px-6 py-24 md:py-32">
@@ -36,18 +36,18 @@ export const CheckoutPage: React.FC = () => {
                     {/* Order Summary */}
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
                         <div>
-                            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Resumen del Pedido</h1>
+                            <h1 className="text-3xl md:text-4xl font-medium text-white mb-4">Resumen del Pedido</h1>
                             <p className="text-zinc-400">Estás a un paso de desbloquear el potencial total de la IA.</p>
                         </div>
 
                         <div className="bg-[#111] border border-zinc-800 rounded-2xl p-8">
                             <div className="flex justify-between items-start mb-6">
                                 <div>
-                                    <h3 className="text-xl font-bold text-white">{plan.name}</h3>
+                                    <h3 className="text-xl font-medium text-white">{plan.name}</h3>
                                     <p className="text-zinc-500 text-sm mt-1">{plan.description}</p>
                                 </div>
                                 <div className="text-right">
-                                    <div className="text-3xl font-bold text-white">{plan.price}</div>
+                                    <div className="text-3xl font-medium text-white">{plan.price}</div>
                                     <div className="text-zinc-500 text-sm">/{plan.period}</div>
                                 </div>
                             </div>
@@ -81,7 +81,7 @@ export const CheckoutPage: React.FC = () => {
                     <div className="lg:pl-8 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
                         <div className="bg-white rounded-3xl p-1 shadow-2xl shadow-orange-900/10 overflow-hidden">
                             <div className="bg-white p-6 md:p-8 rounded-[20px] border border-zinc-100">
-                                <h2 className="text-lg font-bold text-zinc-900 mb-6 flex items-center gap-2">
+                                <h2 className="text-lg font-medium text-zinc-900 mb-6 flex items-center gap-2">
                                     Método de Pago
                                     <span className="text-xs font-normal text-zinc-500 bg-zinc-100 px-2 py-0.5 rounded-full">Secured</span>
                                 </h2>

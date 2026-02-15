@@ -34,13 +34,13 @@ export const LoginPage: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#050505] flex flex-col font-mono">
+        <div className="min-h-screen bg-[#050505] flex flex-col font-sans">
             <Navbar hideNavLinks />
 
             <PageTransition className="flex-1 flex flex-col items-center justify-center px-6 py-12">
 
                 <div className="text-center mb-8">
-                    <h1 className="text-2xl font-bold text-white mb-2">accede a promptbank</h1>
+                    <h1 className="text-2xl font-medium text-white mb-2">accede a promptbank</h1>
                     <p className="text-xs md:text-sm text-zinc-500">tu colección personal de inteligencia</p>
                 </div>
 
@@ -98,7 +98,7 @@ export const LoginPage: React.FC = () => {
                     </Button>
 
                     <div className="text-center text-xs md:text-sm text-zinc-500 mb-2">
-                        ¿ya tienes cuenta? <Link to="/login" className="text-orange-500 hover:text-orange-400 font-bold ml-1">iniciar sesión</Link>
+                        ¿ya tienes cuenta? <Link to="/login" className="text-orange-500 hover:text-orange-400 font-medium ml-1">iniciar sesión</Link>
                     </div>
 
                 </div>

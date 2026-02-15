@@ -21,7 +21,7 @@ const Stat: React.FC<{ value: string; label: string; color?: string }> = ({
   color = "text-orange-500",
 }) => (
   <div className="text-center">
-    <div className={`text-2xl md:text-3xl font-bold mb-1 ${color}`}>
+    <div className={`text-2xl md:text-3xl font-medium mb-1 ${color}`}>
       {value}
     </div>
     <div className="text-xs md:text-sm text-zinc-500 tracking-wider">
@@ -137,7 +137,7 @@ export const HomePage: React.FC = () => {
   */
 
   return (
-    <div className="min-h-screen bg-[#050505] flex flex-col font-mono selection:bg-orange-500/30">
+    <div className="min-h-screen bg-[#050505] flex flex-col font-sans selection:bg-orange-500/30">
       <Navbar />
 
       <PageTransition className="flex-1 flex flex-col items-center overflow-hidden w-full">
@@ -170,7 +170,7 @@ export const HomePage: React.FC = () => {
                         */}
 
           <Reveal delay={300}>
-            <h1 className="text-3xl md:text-6xl font-bold text-white mb-6 leading-tight tracking-tight">
+            <h1 className="text-3xl md:text-[48px] font-medium text-white mb-6 leading-tight tracking-tight">
               El 100% de la capacidad de tu IA está{" "}
               <span className="text-orange-500">bloqueado</span> tras un mal
               prompt.{" "}
@@ -178,7 +178,7 @@ export const HomePage: React.FC = () => {
           </Reveal>
 
           <Reveal delay={400}>
-            <p className="text-zinc-400 max-w-2xl mx-auto mb-10 text-sm md:text-base leading-relaxed">
+            <p className="text-zinc-400 max-w-2xl mx-auto mb-10 text-sm md:text-[18px] leading-relaxed">
               Accede a la colección privada de prompts más avanzada. Copia y
               pega ingeniería de prompts profesional, probada para extraer el
               100% de GPT-4, Claude y Midjourney.
@@ -217,7 +217,7 @@ export const HomePage: React.FC = () => {
             <div className="w-full max-w-[1400px] mx-auto">
               <div className="px-6 md:px-8 flex justify-between items-end mb-8 max-w-6xl mx-auto">
                 <div>
-                  <h2 className="text-2xl font-bold text-white mb-1">
+                  <h2 className="text-2xl font-medium text-white mb-1">
                     prompts destacados
                   </h2>
                   <p className="text-xs md:text-sm text-zinc-500">
@@ -226,7 +226,7 @@ export const HomePage: React.FC = () => {
                 </div>
                 <Link
                   to="/prompts"
-                  className="text-orange-500 text-xs md:text-sm font-bold hover:text-orange-400 flex items-center gap-1 group"
+                  className="text-orange-500 text-xs md:text-sm font-medium hover:text-orange-400 flex items-center gap-1 group"
                 >
                   ver todo{" "}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -258,7 +258,7 @@ export const HomePage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="text-center mt-2 text-xs md:text-sm text-zinc-600 font-mono tracking-widest opacity-60">
+              <div className="text-center mt-2 text-xs md:text-sm text-zinc-600 font-sans tracking-widest opacity-60">
                 pasa el cursor para pausar
               </div>
             </div>
@@ -275,7 +275,7 @@ export const HomePage: React.FC = () => {
                     <div className="w-8 h-8 rounded bg-zinc-800 flex items-center justify-center">
                       <Sparkles className="w-5 h-5 text-orange-400" />
                     </div>
-                    <h3 className="text-lg font-bold text-white">
+                    <h3 className="text-lg font-medium text-white">
                       Únete a la Élite
                     </h3>
                   </div>
@@ -314,7 +314,7 @@ export const HomePage: React.FC = () => {
         {/* Features Section */}
         <section className="w-full py-16 px-6">
           <Reveal>
-            <h2 className="text-center text-xl font-bold mb-12">
+            <h2 className="text-center text-xl font-medium mb-12">
               ¿por qué usar este banco de prompts?
             </h2>
           </Reveal>
@@ -325,7 +325,7 @@ export const HomePage: React.FC = () => {
                   <div className="mb-4 p-2 bg-zinc-900 w-fit rounded-lg group-hover:bg-zinc-800 transition-colors">
                     <feature.icon className="w-5 h-5 text-green-400" />
                   </div>
-                  <h3 className="font-bold text-white mb-2 text-sm md:text-base">
+                  <h3 className="font-medium text-white mb-2 text-sm md:text-base">
                     {feature.title}
                   </h3>
                   <p className="text-xs md:text-sm text-zinc-500 leading-relaxed">
@@ -348,7 +348,7 @@ export const HomePage: React.FC = () => {
           <div className="relative z-10 max-w-6xl mx-auto">
             <Reveal>
               <div className="text-center mb-16">
-                <h2 className="text-2xl font-bold text-white mb-3">
+                <h2 className="text-2xl font-medium text-white mb-3">
                   planes transparentes
                 </h2>
                 <p className="text-xs md:text-sm text-zinc-500">
@@ -380,17 +380,17 @@ export const HomePage: React.FC = () => {
                                         `}
                     >
                       {plan.isPopular && (
-                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-black text-xs font-medium px-3 py-1 rounded-full uppercase tracking-wider">
                           {isCurrentPlan ? "Tu suscripción" : "recomendado"}
                         </div>
                       )}
 
                       <div className="mb-8">
-                        <h3 className="text-lg font-bold text-white mb-2">
+                        <h3 className="text-lg font-medium text-white mb-2">
                           {plan.name}
                         </h3>
                         <div className="flex items-baseline gap-1.5 mb-2">
-                          <span className="text-4xl font-bold text-white tracking-tight">
+                          <span className="text-4xl font-medium text-white tracking-tight">
                             {plan.price}
                           </span>
                           <span className="text-sm font-medium text-zinc-500">
@@ -466,7 +466,7 @@ export const HomePage: React.FC = () => {
         <section className="w-full py-16 px-6 bg-[#0a0a0a] border-t border-white/5">
           <Reveal>
             <div className="text-center mb-10">
-              <h2 className="text-xl font-bold text-white mb-2 font-mono">
+              <h2 className="text-xl font-medium text-white mb-2 font-mono">
                 categorías en la bóveda
               </h2>
               <p className="text-xs md:text-sm text-zinc-500">
@@ -500,7 +500,7 @@ export const HomePage: React.FC = () => {
         <section className="w-full py-20 px-6">
           <Reveal>
             <div className="text-center mb-12">
-              <h2 className="text-xl font-bold text-white font-mono">
+              <h2 className="text-xl font-medium text-white font-mono">
                 cómo funciona
               </h2>
             </div>
@@ -510,11 +510,11 @@ export const HomePage: React.FC = () => {
             {STEPS.map((step, idx) => (
               <Reveal key={step.id} delay={idx * 150}>
                 <div className="bg-[#0f0f11] border border-zinc-800 p-5 rounded-xl flex items-center gap-5 group hover:border-zinc-700 transition-all cursor-default hover:bg-[#141416]">
-                  <div className="w-8 h-8 rounded bg-orange-600 flex items-center justify-center font-bold text-white text-xs md:text-sm shrink-0 shadow-lg shadow-orange-900/20 group-hover:scale-110 transition-transform">
+                  <div className="w-8 h-8 rounded bg-orange-600 flex items-center justify-center font-medium text-white text-xs md:text-sm shrink-0 shadow-lg shadow-orange-900/20 group-hover:scale-110 transition-transform">
                     {step.id}
                   </div>
                   <div>
-                    <h3 className="text-sm md:text-base font-bold text-white mb-1 group-hover:text-orange-400 transition-colors">
+                    <h3 className="text-sm md:text-base font-medium text-white mb-1 group-hover:text-orange-400 transition-colors">
                       {step.title}
                     </h3>
                     <p className="text-xs md:text-sm text-zinc-500">
@@ -530,7 +530,7 @@ export const HomePage: React.FC = () => {
         {/* Bottom CTA */}
         <section className="w-full py-24 px-6 text-center border-t border-white/5 bg-gradient-to-b from-[#050505] to-[#0a0a0a]">
           <Reveal>
-            <h2 className="text-2xl font-bold text-white mb-3">
+            <h2 className="text-2xl font-medium text-white mb-3">
               domina la ingeniería de prompts
             </h2>
             <p className="text-xs md:text-sm text-zinc-500 mb-8 max-w-md mx-auto">

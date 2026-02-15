@@ -37,7 +37,7 @@ export const Navbar: React.FC<NavbarProps> = ({ hideNavLinks = false }) => {
       <div className="flex items-center gap-2">
         <Link to="/" className="flex items-center gap-2 group">
           <Terminal className="w-6 h-6 text-orange-500 group-hover:text-white transition-colors" />
-          <span className="font-bold text-lg tracking-tight">alpacka.ai</span>
+          <span className="font-medium text-lg tracking-tight">alpacka.ai</span>
         </Link>
       </div>
 
@@ -61,7 +61,7 @@ export const Navbar: React.FC<NavbarProps> = ({ hideNavLinks = false }) => {
               {user ? (
                 <div className="flex items-center gap-6">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-purple-500 flex items-center justify-center text-white font-bold text-xs border border-white/10 shadow-lg shadow-orange-500/10">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-purple-500 flex items-center justify-center text-white font-medium text-xs border border-white/10 shadow-lg shadow-orange-500/10">
                       {user.email?.charAt(0).toUpperCase()}
                     </div>
                     <Link
@@ -143,7 +143,7 @@ export const Navbar: React.FC<NavbarProps> = ({ hideNavLinks = false }) => {
                     <Link
                       key={item.label}
                       to={item.path}
-                      className="text-lg font-bold text-zinc-400 hover:text-white px-2"
+                      className="text-lg font-medium text-zinc-400 hover:text-white px-2"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.label}
@@ -155,7 +155,7 @@ export const Navbar: React.FC<NavbarProps> = ({ hideNavLinks = false }) => {
                   {user ? (
                     <div className="flex flex-col gap-4">
                       <div className="flex items-center gap-3 px-2">
-                        <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-black font-bold">
+                        <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-black font-medium">
                           {user.email?.charAt(0).toUpperCase()}
                         </div>
                         <span className="text-white font-medium">

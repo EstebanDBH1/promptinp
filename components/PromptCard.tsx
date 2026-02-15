@@ -15,11 +15,11 @@ export const PromptCard: React.FC<{ prompt: PromptProfile }> = ({ prompt }) => {
         >
             <div className="flex flex-col gap-4">
                 <div className="flex justify-between items-start gap-4">
-                    <h3 className="text-sm md:text-base font-bold text-white leading-snug flex-1 group-hover:text-orange-500 transition-colors">
+                    <h3 className="text-sm md:text-base font-medium text-white leading-snug flex-1 group-hover:text-orange-500 transition-colors">
                         {prompt.title}
                     </h3>
                     <div className={`
-                        text-[9px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider
+                        text-[9px] font-medium px-2 py-0.5 rounded border uppercase tracking-wider
                         ${isPremium
                             ? 'text-orange-500 bg-orange-500/5 border-orange-500/20'
                             : 'text-zinc-500 bg-zinc-900 border-zinc-800'}
@@ -40,7 +40,7 @@ export const PromptCard: React.FC<{ prompt: PromptProfile }> = ({ prompt }) => {
                     </div>
                 ) : (
                     <div className="bg-[#050505] border border-zinc-800 rounded-lg p-3 relative overflow-hidden h-[100px]">
-                        <p className="text-[11px] md:text-xs text-zinc-500 font-mono leading-relaxed line-clamp-4 italic">
+                        <p className="text-[11px] md:text-xs text-zinc-500 font-sans leading-relaxed line-clamp-4 italic">
                             "{prompt.content}"
                         </p>
                         <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-[#050505] to-transparent"></div>
@@ -52,7 +52,7 @@ export const PromptCard: React.FC<{ prompt: PromptProfile }> = ({ prompt }) => {
                 </p>
             </div>
 
-            <div className="mt-4 flex items-center justify-between text-[10px] md:text-xs font-bold uppercase tracking-widest text-orange-500/80 group-hover:text-orange-500 transition-colors">
+            <div className="mt-4 flex items-center justify-between text-[10px] md:text-xs font-medium uppercase tracking-widest text-orange-500/80 group-hover:text-orange-500 transition-colors">
                 <span>ver prompt completo</span>
                 <Sparkles className="w-3 h-3 group-hover:scale-110 transition-transform" />
             </div>

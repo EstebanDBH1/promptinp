@@ -6,16 +6,16 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({ 
-  children, 
-  variant = 'primary', 
-  size = 'md', 
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  variant = 'primary',
+  size = 'md',
   fullWidth = false,
   className = '',
-  ...props 
+  ...props
 }) => {
-  const baseStyles = "inline-flex items-center justify-center font-bold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
-  
+  const baseStyles = "inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+
   const variants = {
     primary: "bg-orange-500 hover:bg-orange-600 text-black border border-transparent focus:ring-orange-500",
     outline: "bg-transparent border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white focus:ring-zinc-500",
@@ -31,7 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   return (
-    <button 
+    <button
       className={`
         ${baseStyles} 
         ${variants[variant]} 

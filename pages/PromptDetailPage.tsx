@@ -81,7 +81,7 @@ export const PromptDetailPage: React.FC = () => {
 
     if (loading || subLoading) {
         return (
-            <div className="min-h-screen bg-[#050505] flex flex-col font-mono">
+            <div className="min-h-screen bg-[#050505] flex flex-col font-sans">
                 <Navbar />
                 <div className="flex-1 flex items-center justify-center">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
@@ -93,10 +93,10 @@ export const PromptDetailPage: React.FC = () => {
 
     if (!prompt) {
         return (
-            <div className="min-h-screen bg-[#050505] flex flex-col font-mono text-zinc-300">
+            <div className="min-h-screen bg-[#050505] flex flex-col font-sans text-zinc-300">
                 <Navbar />
                 <div className="flex-1 flex flex-col items-center justify-center px-6">
-                    <h1 className="text-2xl font-bold mb-4 italic text-zinc-500">Prompt no encontrado</h1>
+                    <h1 className="text-2xl font-medium mb-4 italic text-zinc-500">Prompt no encontrado</h1>
                     <Button variant="primary" onClick={() => navigate('/prompts')}>Volver a la biblioteca</Button>
                 </div>
                 <Footer />
@@ -109,7 +109,7 @@ export const PromptDetailPage: React.FC = () => {
     const hasAccess = !isPremium || !!subscription;
 
     return (
-        <div className="min-h-screen bg-[#050505] flex flex-col font-mono selection:bg-orange-500/30">
+        <div className="min-h-screen bg-[#050505] flex flex-col font-sans selection:bg-orange-500/30">
             <Navbar />
 
             <PageTransition className="flex-1 w-full max-w-4xl mx-auto px-6 py-12 md:py-20">
@@ -132,10 +132,10 @@ export const PromptDetailPage: React.FC = () => {
                                     {prompt.modelIcon}
                                 </div>
                                 <div>
-                                    <div className={`text-[10px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider inline-block mb-1 ${isPremium ? 'text-orange-500 border-orange-500/20 bg-orange-500/5' : 'text-zinc-500 border-zinc-800 bg-zinc-900'}`}>
+                                    <div className={`text-[10px] font-medium px-2 py-0.5 rounded border uppercase tracking-wider inline-block mb-1 ${isPremium ? 'text-orange-500 border-orange-500/20 bg-orange-500/5' : 'text-zinc-500 border-zinc-800 bg-zinc-900'}`}>
                                         {prompt.price}
                                     </div>
-                                    <h1 className="text-xl font-bold text-white leading-tight">{prompt.title}</h1>
+                                    <h1 className="text-xl font-medium text-white leading-tight">{prompt.title}</h1>
                                 </div>
                             </div>
                         </Reveal>
@@ -168,7 +168,7 @@ export const PromptDetailPage: React.FC = () => {
 
                         <Reveal delay={300}>
                             <div className="pt-6 border-t border-zinc-800">
-                                <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-3">Descripción</h3>
+                                <h3 className="text-xs font-medium text-zinc-500 uppercase tracking-widest mb-3">Descripción</h3>
                                 <p className="text-sm text-zinc-400 leading-relaxed italic">
                                     "{prompt.description}"
                                 </p>
@@ -178,7 +178,7 @@ export const PromptDetailPage: React.FC = () => {
                         <Reveal delay={400}>
                             <div className="flex flex-wrap gap-2 pt-4">
                                 {prompt.tags.map(tag => (
-                                    <span key={tag} className="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-500 text-[10px] font-bold uppercase tracking-wider">
+                                    <span key={tag} className="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-500 text-[10px] font-medium uppercase tracking-wider">
                                         #{tag}
                                     </span>
                                 ))}
@@ -190,7 +190,7 @@ export const PromptDetailPage: React.FC = () => {
                     <div className="lg:col-span-2">
                         <Reveal delay={200}>
                             <div className="relative">
-                                <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <h3 className="text-xs font-medium text-zinc-500 uppercase tracking-widest mb-4 flex items-center gap-2">
                                     <Sparkles className="w-3 h-3 text-orange-500" />
                                     Instrucción del Prompt
                                 </h3>
@@ -202,7 +202,7 @@ export const PromptDetailPage: React.FC = () => {
                                             <div className="w-16 h-16 bg-orange-500/10 rounded-full flex items-center justify-center mb-6 border border-orange-500/20">
                                                 <Lock className="w-8 h-8 text-orange-500" />
                                             </div>
-                                            <h2 className="text-xl font-bold text-white mb-2 uppercase tracking-tight">Prompt Premium</h2>
+                                            <h2 className="text-xl font-medium text-white mb-2 uppercase tracking-tight">Prompt Premium</h2>
                                             <p className="text-xs md:text-sm text-zinc-400 mb-8 max-w-xs leading-relaxed">
                                                 este prompt es exclusivo para miembros premium. obtén una suscripción activa para desbloquear este y cientos de megaprompts más.
                                             </p>

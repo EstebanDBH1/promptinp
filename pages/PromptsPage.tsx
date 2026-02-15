@@ -87,7 +87,7 @@ export const PromptsPage: React.FC = () => {
     });
 
     return (
-        <div className="min-h-screen bg-[#050505] flex flex-col font-mono selection:bg-orange-500/30">
+        <div className="min-h-screen bg-[#050505] flex flex-col font-sans selection:bg-orange-500/30">
             <Navbar />
 
             <PageTransition className="flex-1 w-full max-w-[1400px] mx-auto px-6 py-12">
@@ -95,7 +95,7 @@ export const PromptsPage: React.FC = () => {
                 {/* Header */}
                 <Reveal>
                     <div className="mb-8">
-                        <h1 className="text-2xl font-bold text-white mb-1">bóveda de megaprompts</h1>
+                        <h1 className="text-2xl font-medium text-white mb-1">bóveda de megaprompts</h1>
                         <p className="text-sm text-zinc-500">accede a la ingeniería de prompts más avanzada de la industria</p>
                     </div>
                 </Reveal>
@@ -113,7 +113,7 @@ export const PromptsPage: React.FC = () => {
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
                                         placeholder="buscar por título, contenido o descripción..."
-                                        className="w-full bg-[#18181b] border border-zinc-800 rounded-lg pl-10 pr-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-600 focus:ring-1 focus:ring-zinc-600 transition-all font-mono"
+                                        className="w-full bg-[#18181b] border border-zinc-800 rounded-lg pl-10 pr-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-600 focus:ring-1 focus:ring-zinc-600 transition-all font-sans"
                                     />
                                     <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
                                     {searchTerm && (
@@ -133,7 +133,7 @@ export const PromptsPage: React.FC = () => {
                             <div className="flex flex-wrap gap-2">
                                 <button
                                     onClick={() => setSearchParams({})}
-                                    className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${selectedCategory === 'all' ? 'bg-white text-black' : 'bg-[#18181b] border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600'}`}
+                                    className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${selectedCategory === 'all' ? 'bg-white text-black' : 'bg-[#18181b] border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600'}`}
                                 >
                                     todas
                                 </button>
@@ -141,7 +141,7 @@ export const PromptsPage: React.FC = () => {
                                     <button
                                         key={cat}
                                         onClick={() => setSearchParams({ category: cat })}
-                                        className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all border ${selectedCategory === cat ? 'bg-orange-500 text-black border-orange-400' : 'bg-[#18181b] border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600'}`}
+                                        className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all border ${selectedCategory === cat ? 'bg-orange-500 text-black border-orange-400' : 'bg-[#18181b] border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600'}`}
                                     >
                                         {cat.toLowerCase()}
                                     </button>

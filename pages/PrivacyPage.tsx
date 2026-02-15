@@ -5,11 +5,11 @@ import { PageTransition } from "../components/PageTransition";
 
 export const PrivacyPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-[#050505] flex flex-col font-mono text-zinc-300 selection:bg-orange-500/30">
+    <div className="min-h-screen bg-[#050505] flex flex-col font-sans text-zinc-300 selection:bg-orange-500/30">
       <Navbar />
 
       <PageTransition className="flex-1 w-full max-w-4xl mx-auto px-6 py-16">
-        <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+        <h1 className="text-3xl md:text-4xl font-medium text-white mb-2">
           política de privacidad
         </h1>
         <p className="text-sm text-zinc-500 mb-12">
@@ -18,7 +18,7 @@ export const PrivacyPage: React.FC = () => {
 
         <div className="space-y-12 text-sm leading-relaxed">
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-medium text-white mb-4">
               1. responsable del tratamiento
             </h2>
             <p className="mb-4">
@@ -30,7 +30,7 @@ export const PrivacyPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-medium text-white mb-4">
               2. recopilación de información
             </h2>
             <p className="mb-4">
@@ -78,7 +78,7 @@ export const PrivacyPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-medium text-white mb-4">
               3. compartir información con terceros
             </h2>
             <p className="mb-4">
@@ -114,7 +114,7 @@ export const PrivacyPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-medium text-white mb-4">
               4. finalidad del tratamiento
             </h2>
             <p className="mb-4">Utilizamos tus datos para:</p>
@@ -136,7 +136,7 @@ export const PrivacyPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-medium text-white mb-4">
               5. cookies y rastreo
             </h2>
             <p className="mb-4">
@@ -148,7 +148,7 @@ export const PrivacyPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-medium text-white mb-4">
               6. seguridad y retención
             </h2>
             <p className="mb-4">
@@ -166,7 +166,7 @@ export const PrivacyPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-medium text-white mb-4">
               7. tus derechos (GDPR/RGPD)
             </h2>
             <p className="mb-4">
@@ -197,7 +197,7 @@ export const PrivacyPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-medium text-white mb-4">
               8. transferencias internacionales
             </h2>
             <p className="mb-4 text-zinc-400">
@@ -218,7 +218,7 @@ export const PrivacyPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">9. contacto</h2>
+            <h2 className="text-xl font-medium text-white mb-4">9. contacto</h2>
             <p className="mb-4">
               Si tienes dudas sobre esta política, escríbenos a:{" "}
               <span className="text-orange-500 underline">

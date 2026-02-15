@@ -5,11 +5,11 @@ import { PageTransition } from "../components/PageTransition";
 
 export const TermsPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-[#050505] flex flex-col font-mono text-zinc-300 selection:bg-orange-500/30">
+    <div className="min-h-screen bg-[#050505] flex flex-col font-sans text-zinc-300 selection:bg-orange-500/30">
       <Navbar />
 
       <PageTransition className="flex-1 w-full max-w-4xl mx-auto px-6 py-16">
-        <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+        <h1 className="text-3xl md:text-4xl font-medium text-white mb-2">
           términos de servicio
         </h1>
         <p className="text-sm text-zinc-500 mb-12">
@@ -18,7 +18,7 @@ export const TermsPage: React.FC = () => {
 
         <div className="space-y-12 text-sm leading-relaxed">
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-medium text-white mb-4">
               1. aceptación de los términos
             </h2>
             <p className="mb-4">
@@ -54,7 +54,7 @@ export const TermsPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-medium text-white mb-4">
               2. suscripciones y pagos
             </h2>
             <p className="mb-4">
@@ -90,7 +90,7 @@ export const TermsPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-medium text-white mb-4">
               3. licencia de uso
             </h2>
             <p className="mb-4">
@@ -107,7 +107,7 @@ export const TermsPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-medium text-white mb-4">
               4. propiedad intelectual
             </h2>
             <p className="mb-4">
@@ -119,7 +119,7 @@ export const TermsPage: React.FC = () => {
           </section>
 
           <section id="refund-policy">
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-medium text-white mb-4">
               5. política de reembolsos
             </h2>
             <p className="mb-4">
@@ -168,7 +168,7 @@ export const TermsPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-medium text-white mb-4">
               6. limitación de responsabilidad
             </h2>
             <p className="mb-4">
@@ -179,7 +179,7 @@ export const TermsPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-medium text-white mb-4">
               7. modificaciones del servicio
             </h2>
             <p className="mb-4">
@@ -191,7 +191,7 @@ export const TermsPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">8. contacto</h2>
+            <h2 className="text-xl font-medium text-white mb-4">8. contacto</h2>
             <p className="mb-4">
               Si tienes preguntas sobre estos términos, puedes contactarnos en:{" "}
               <span className="text-orange-500 underline">

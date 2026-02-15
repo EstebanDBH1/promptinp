@@ -20,7 +20,7 @@ export const SettingsPage: React.FC = () => {
     const currentPlan = PRICING_PLANS.find(p => p.paypalPlanId === subscription?.price_id);
 
     return (
-        <div className="min-h-screen bg-[#050505] flex flex-col font-mono selection:bg-orange-500/30">
+        <div className="min-h-screen bg-[#050505] flex flex-col font-sans selection:bg-orange-500/30">
             <Navbar />
 
             <PageTransition className="flex-1 max-w-4xl mx-auto w-full px-6 py-12 md:py-20">
@@ -29,7 +29,7 @@ export const SettingsPage: React.FC = () => {
                         <div className="p-2 bg-zinc-900 rounded-lg border border-zinc-800">
                             <SettingsIcon className="w-5 h-5 text-zinc-400" />
                         </div>
-                        <h1 className="text-2xl font-bold text-white tracking-tight">Ajustes de Cuenta</h1>
+                        <h1 className="text-2xl font-medium text-white tracking-tight">Ajustes de Cuenta</h1>
                     </div>
                 </Reveal>
 
@@ -46,7 +46,7 @@ export const SettingsPage: React.FC = () => {
                         {/* Profile Section */}
                         <Reveal delay={100}>
                             <section className="p-6 rounded-2xl bg-[#0a0a0a] border border-zinc-800">
-                                <h2 className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-6">Información Personal</h2>
+                                <h2 className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-6">Información Personal</h2>
                                 <div className="space-y-4">
                                     <div className="flex flex-col gap-1">
                                         <label className="text-xs text-zinc-600">Email</label>
@@ -68,7 +68,7 @@ export const SettingsPage: React.FC = () => {
                         <Reveal delay={200}>
                             <section className="p-6 rounded-2xl bg-[#0a0a0a] border border-zinc-800">
                                 <div className="flex items-center justify-between mb-6">
-                                    <h2 className="text-sm font-bold text-zinc-500 uppercase tracking-widest">Suscripción y Plan</h2>
+                                    <h2 className="text-sm font-medium text-zinc-500 uppercase tracking-widest">Suscripción y Plan</h2>
                                     <Shield className="w-4 h-4 text-orange-500/50" />
                                 </div>
 
@@ -87,13 +87,13 @@ export const SettingsPage: React.FC = () => {
                                                     <CreditCard className="w-6 h-6 text-orange-500" />
                                                 </div>
                                                 <div>
-                                                    <div className="text-xs text-zinc-500 mb-0.5 font-bold uppercase">Plan Actual</div>
-                                                    <div className="text-lg font-bold text-white">
+                                                    <div className="text-xs text-zinc-500 mb-0.5 font-medium uppercase">Plan Actual</div>
+                                                    <div className="text-lg font-medium text-white">
                                                         {currentPlan ? `${currentPlan.name} — ${currentPlan.price}/${currentPlan.period}` : 'Hobby (Gratis)'}
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tighter ${subscription?.subscription_status === 'active'
+                                            <div className={`px-3 py-1 rounded-full text-[10px] font-medium uppercase tracking-tighter ${subscription?.subscription_status === 'active'
                                                 ? 'bg-green-500/10 text-green-500 border border-green-500/20'
                                                 : subscription?.subscription_status === 'cancelled'
                                                     ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20'

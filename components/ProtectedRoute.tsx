@@ -14,7 +14,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
             <div className="min-h-screen bg-[#050505] flex items-center justify-center">
                 <div className="text-center">
                     <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white mb-4"></div>
-                    <p className="text-zinc-500 text-sm font-mono">cargando...</p>
+                    <p className="text-zinc-500 text-sm font-sans">cargando...</p>
                 </div>
             </div>
         );

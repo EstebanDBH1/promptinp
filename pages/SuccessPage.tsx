@@ -31,7 +31,7 @@ export const SuccessPage: React.FC = () => {
     }, [subscription, subLoading, retryCount]);
 
     return (
-        <div className="min-h-screen bg-[#050505] flex flex-col font-mono selection:bg-orange-500/30">
+        <div className="min-h-screen bg-[#050505] flex flex-col font-sans selection:bg-orange-500/30">
             <Navbar />
 
             <PageTransition className="flex-1 flex flex-col items-center justify-center px-6 py-20 text-center">
@@ -46,7 +46,7 @@ export const SuccessPage: React.FC = () => {
                 </Reveal>
 
                 <Reveal delay={100}>
-                    <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+                    <h1 className="text-4xl md:text-5xl font-medium text-white mb-6 tracking-tight">
                         {syncing ? 'Sincronizando...' : '¡Bienvenido al futuro!'}
                     </h1>
                 </Reveal>

@@ -9,11 +9,11 @@ export const Footer: React.FC = () => {
 
         <div className="flex items-center gap-3">
           <Terminal className="w-4 h-4 text-zinc-500" />
-          <span className="text-zinc-500 text-xs md:text-sm font-bold">Alpacka.ai</span>
+          <span className="text-zinc-500 text-xs md:text-sm font-medium">Alpacka.ai</span>
           <Code2 className="w-4 h-4 text-zinc-500 hover:text-white cursor-pointer" />
         </div>
 
-        <div className="flex flex-wrap justify-center items-center gap-6 text-xs md:text-sm text-zinc-500 font-mono">
+        <div className="flex flex-wrap justify-center items-center gap-6 text-xs md:text-sm text-zinc-500 font-sans">
           <Link to="/prompts" className="hover:text-zinc-300 transition-colors">top prompts</Link>
           <Link to="/prompts" className="hover:text-zinc-300 transition-colors">galería vip</Link>
           <Link to="/#pricing" className="hover:text-zinc-300 transition-colors">acceso total</Link>

@@ -25,11 +25,11 @@ export const DebugAuthPage: React.FC = () => {
 
     return (
         <PageTransition className="min-h-screen bg-[#050505] text-white p-8 font-mono">
-            <h1 className="text-2xl font-bold mb-6">🔐 Debug de Autenticación</h1>
+            <h1 className="text-2xl font-medium mb-6">🔐 Debug de Autenticación</h1>
 
             <div className="space-y-6">
                 <div className="bg-[#111] border border-zinc-800 rounded-lg p-4">
-                    <h2 className="text-lg font-bold mb-2 text-orange-500">Estado del Contexto</h2>
+                    <h2 className="text-lg font-medium mb-2 text-orange-500">Estado del Contexto</h2>
                     <div className="space-y-2 text-sm">
                         <p><strong>Loading:</strong> {loading ? 'true' : 'false'}</p>
                         <p><strong>User:</strong> {user ? user.email : 'null'}</p>
@@ -38,7 +38,7 @@ export const DebugAuthPage: React.FC = () => {
                 </div>
 
                 <div className="bg-[#111] border border-zinc-800 rounded-lg p-4">
-                    <h2 className="text-lg font-bold mb-2 text-purple-500">Datos de Sesión (Direct)</h2>
+                    <h2 className="text-lg font-medium mb-2 text-purple-500">Datos de Sesión (Direct)</h2>
                     {error && (
                         <div className="mb-2 p-2 bg-red-500/10 border border-red-500/20 rounded text-red-400 text-xs">
                             Error: {error}
@@ -50,7 +50,7 @@ export const DebugAuthPage: React.FC = () => {
                 </div>
 
                 <div className="bg-[#111] border border-zinc-800 rounded-lg p-4">
-                    <h2 className="text-lg font-bold mb-2 text-blue-500">Variables de Entorno</h2>
+                    <h2 className="text-lg font-medium mb-2 text-blue-500">Variables de Entorno</h2>
                     <div className="space-y-2 text-sm">
                         <p><strong>VITE_SUPABASE_URL:</strong> {import.meta.env.VITE_SUPABASE_URL || 'NOT SET'}</p>
                         <p><strong>VITE_SUPABASE_ANON_KEY:</strong> {import.meta.env.VITE_SUPABASE_ANON_KEY ? 'SET (hidden)' : 'NOT SET'}</p>
@@ -58,7 +58,7 @@ export const DebugAuthPage: React.FC = () => {
                 </div>
 
                 <div className="bg-[#111] border border-zinc-800 rounded-lg p-4">
-                    <h2 className="text-lg font-bold mb-2 text-green-500">URL Actual</h2>
+                    <h2 className="text-lg font-medium mb-2 text-green-500">URL Actual</h2>
                     <div className="space-y-2 text-sm">
                         <p><strong>Origin:</strong> {window.location.origin}</p>
                         <p><strong>Hash:</strong> {window.location.hash}</p>
@@ -67,7 +67,7 @@ export const DebugAuthPage: React.FC = () => {
                 </div>
 
                 <div className="bg-[#111] border border-zinc-800 rounded-lg p-4">
-                    <h2 className="text-lg font-bold mb-2 text-yellow-500">Instrucciones</h2>
+                    <h2 className="text-lg font-medium mb-2 text-yellow-500">Instrucciones</h2>
                     <ol className="list-decimal list-inside space-y-2 text-sm text-zinc-400">
                         <li>Abre la consola del navegador (F12)</li>
                         <li>Busca los logs que empiezan con 🔐</li>
