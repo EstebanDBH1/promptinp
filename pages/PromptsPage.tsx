@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { PromptCard } from '../components/PromptCard';
-import { ArrowLeft, ArrowRight, Search as SearchIcon, X } from 'lucide-react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { ArrowLeft, ArrowRight, Search as SearchIcon, X, Zap, Sparkles } from 'lucide-react';
 import { PageTransition } from '../components/PageTransition';
 import { Reveal } from '../components/Reveal';
 import { supabase } from '../lib/supabase';
 import { PromptProfile } from '../types';
-import { useSearchParams } from 'react-router-dom';
 
 export const PromptsPage: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -19,6 +19,7 @@ export const PromptsPage: React.FC = () => {
     // Filter states
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string>(searchParams.get('category') || 'all');
+    const [selectedType, setSelectedType] = useState<'all' | 'free' | 'premium'>('all');
 
     useEffect(() => {
         const categoryFromUrl = searchParams.get('category');
@@ -83,8 +84,12 @@ export const PromptsPage: React.FC = () => {
             prompt.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
             prompt.content.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesCategory = selectedCategory === 'all' || prompt.category === selectedCategory;
-        return matchesSearch && matchesCategory;
+        const matchesType = selectedType === 'all' ||
+            (selectedType === 'free' && prompt.price === 'Free') ||
+            (selectedType === 'premium' && prompt.price === 'Premium');
+        return matchesSearch && matchesCategory && matchesType;
     });
+
 
     return (
         <div className="min-h-screen bg-[#050505] flex flex-col font-sans selection:bg-orange-500/30">
@@ -92,10 +97,11 @@ export const PromptsPage: React.FC = () => {
 
             <PageTransition className="flex-1 w-full max-w-[1400px] mx-auto px-6 py-12">
 
+
                 {/* Header */}
                 <Reveal>
                     <div className="mb-8">
-                        <h1 className="text-2xl font-medium text-white mb-1">bóveda de megaprompts</h1>
+                        <h1 className="text-2xl font-semibold text-white mb-1">bóveda de megaprompts</h1>
                         <p className="text-sm text-zinc-500">accede a la ingeniería de prompts más avanzada de la industria</p>
                     </div>
                 </Reveal>
@@ -126,14 +132,39 @@ export const PromptsPage: React.FC = () => {
                                     )}
                                 </div>
                             </div>
+
+                            {/* Access Type Filter */}
+                            <div className="flex flex-col gap-1 min-w-[200px]">
+                                <label className="text-xs text-zinc-500 font-semibold ml-1 font-mono tracking-wide">acceso</label>
+                                <div className="flex bg-[#181818] border border-zinc-800 rounded-lg p-1 h-[46px]">
+                                    <button
+                                        onClick={() => setSelectedType('all')}
+                                        className={`flex-1 rounded-md text-[11px] font-semibold font-mono transition-all ${selectedType === 'all' ? 'bg-zinc-700 text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+                                    >
+                                        todos
+                                    </button>
+                                    <button
+                                        onClick={() => setSelectedType('free')}
+                                        className={`flex-1 rounded-md text-[11px] font-semibold font-mono transition-all ${selectedType === 'free' ? 'bg-orange-500/20 text-orange-500 border border-orange-500/30' : 'text-zinc-500 hover:text-zinc-300'}`}
+                                    >
+                                        gratis
+                                    </button>
+                                    <button
+                                        onClick={() => setSelectedType('premium')}
+                                        className={`flex-1 rounded-md text-[11px] font-semibold font-mono transition-all ${selectedType === 'premium' ? 'bg-orange-500 text-black' : 'text-zinc-500 hover:text-zinc-300'}`}
+                                    >
+                                        premium
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
                         <div className="space-y-3">
-                            <label className="text-xs text-zinc-500 font-medium ml-1">categorías activas ({categories.length})</label>
+                            <label className="text-xs text-zinc-500 font-semibold ml-1 font-mono tracking-wide">categorías activas ({categories.length})</label>
                             <div className="flex flex-wrap gap-2">
                                 <button
                                     onClick={() => setSearchParams({})}
-                                    className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${selectedCategory === 'all' ? 'bg-white text-black' : 'bg-[#18181b] border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600'}`}
+                                    className={`px-4 py-1.5 rounded-full text-xs font-semibold font-mono transition-all border tracking-wide ${!selectedCategory || selectedCategory === 'all' ? 'bg-orange-500/20 text-orange-400 border-orange-500/30' : 'bg-[#18181b] border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600'}`}
                                 >
                                     todas
                                 </button>
@@ -141,13 +172,14 @@ export const PromptsPage: React.FC = () => {
                                     <button
                                         key={cat}
                                         onClick={() => setSearchParams({ category: cat })}
-                                        className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all border ${selectedCategory === cat ? 'bg-orange-500 text-black border-orange-400' : 'bg-[#18181b] border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600'}`}
+                                        className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all border font-mono tracking-wide ${selectedCategory === cat ? 'bg-orange-500/20 text-orange-400 border-orange-500/30' : 'bg-[#18181b] border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600'}`}
                                     >
                                         {cat.toLowerCase()}
                                     </button>
                                 ))}
                             </div>
                         </div>
+
                     </div>
                 </Reveal>
 

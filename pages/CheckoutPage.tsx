@@ -34,7 +34,7 @@ export const CheckoutPage: React.FC = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
                     {/* Order Summary */}
-                    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                    <div className="space-y-8">
                         <div>
                             <h1 className="text-3xl md:text-4xl font-medium text-white mb-4">Resumen del Pedido</h1>
                             <p className="text-zinc-400">Estás a un paso de desbloquear el potencial total de la IA.</p>
@@ -78,7 +78,7 @@ export const CheckoutPage: React.FC = () => {
                     </div>
 
                     {/* Payment Form */}
-                    <div className="lg:pl-8 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
+                    <div className="lg:pl-8">
                         <div className="bg-white rounded-3xl p-1 shadow-2xl shadow-orange-900/10 overflow-hidden">
                             <div className="bg-white p-6 md:p-8 rounded-[20px] border border-zinc-100">
                                 <h2 className="text-lg font-medium text-zinc-900 mb-6 flex items-center gap-2">

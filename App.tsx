@@ -14,6 +14,8 @@ import { SuccessPage } from './pages/SuccessPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { PromptDetailPage } from './pages/PromptDetailPage';
 import { CheckoutPage } from './pages/CheckoutPage';
+import { PricingPage } from './pages/PricingPage';
+import { EbookPage } from './pages/EbookPage';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -23,7 +25,9 @@ function AnimatedRoutes() {
       <Routes location={location}>
         <Route path="/" element={<HomePage />} />
         <Route path="/prompts" element={<PromptsPage />} />
+        <Route path="/pricing" element={<PricingPage />} />
         <Route path="/prompts/:id" element={<PromptDetailPage />} />
+        <Route path="/ebook" element={<EbookPage />} />
         <Route
           path="/success"
           element={

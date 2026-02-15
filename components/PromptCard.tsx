@@ -15,11 +15,11 @@ export const PromptCard: React.FC<{ prompt: PromptProfile }> = ({ prompt }) => {
         >
             <div className="flex flex-col gap-4">
                 <div className="flex justify-between items-start gap-4">
-                    <h3 className="text-sm md:text-base font-medium text-white leading-snug flex-1 group-hover:text-orange-500 transition-colors">
+                    <h3 className="text-sm md:text-base font-semibold text-white leading-snug flex-1 group-hover:text-orange-500 transition-colors font-mono tracking-tight">
                         {prompt.title}
                     </h3>
                     <div className={`
-                        text-[9px] font-medium px-2 py-0.5 rounded border uppercase tracking-wider
+                        text-[9px] font-semibold px-2 py-0.5 rounded border font-mono tracking-wide
                         ${isPremium
                             ? 'text-orange-500 bg-orange-500/5 border-orange-500/20'
                             : 'text-zinc-500 bg-zinc-900 border-zinc-800'}
@@ -27,6 +27,7 @@ export const PromptCard: React.FC<{ prompt: PromptProfile }> = ({ prompt }) => {
                         {prompt.price}
                     </div>
                 </div>
+
 
                 {/* Content Snippet or Image Preview */}
                 {prompt.imageUrl ? (
@@ -52,10 +53,11 @@ export const PromptCard: React.FC<{ prompt: PromptProfile }> = ({ prompt }) => {
                 </p>
             </div>
 
-            <div className="mt-4 flex items-center justify-between text-[10px] md:text-xs font-medium uppercase tracking-widest text-orange-500/80 group-hover:text-orange-500 transition-colors">
+            <div className="mt-4 flex items-center justify-between text-[10px] md:text-xs font-semibold font-mono tracking-wide text-orange-500/80 group-hover:text-orange-500 transition-colors">
                 <span>ver prompt completo</span>
                 <Sparkles className="w-3 h-3 group-hover:scale-110 transition-transform" />
             </div>
+
         </div>
     );
 };

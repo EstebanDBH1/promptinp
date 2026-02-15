@@ -3,22 +3,25 @@ import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { Button } from '../components/Button';
 import { Mail } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { PageTransition } from '../components/PageTransition';
 import { useAuth } from '../contexts/AuthContext';
 
 export const LoginPage: React.FC = () => {
     const { signInWithGoogle, user, loading: authLoading } = useAuth();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     // Redirect if already logged in
     useEffect(() => {
         if (user && !authLoading) {
-            navigate('/prompts');
+            const redirectTo = searchParams.get('redirect') || '/prompts';
+            navigate(redirectTo);
         }
-    }, [user, authLoading, navigate]);
+    }, [user, authLoading, navigate, searchParams]);
+
 
     const handleGoogleLogin = async () => {
         try {
@@ -40,8 +43,8 @@ export const LoginPage: React.FC = () => {
             <PageTransition className="flex-1 flex flex-col items-center justify-center px-6 py-12">
 
                 <div className="text-center mb-8">
-                    <h1 className="text-2xl font-medium text-white mb-2">accede a promptbank</h1>
-                    <p className="text-xs md:text-sm text-zinc-500">tu colección personal de inteligencia</p>
+                    <h1 className="text-2xl font-semibold text-white mb-2 font-mono tracking-tighter">accede a alpacka.ai</h1>
+                    <p className="text-xs md:text-sm text-zinc-500 font-mono font-semibold tracking-wide">tu bóveda personal de inteligencia</p>
                 </div>
 
                 <div className="w-full max-w-sm bg-[#111] border border-zinc-800 rounded-xl p-6 shadow-xl hover-lift">
@@ -81,7 +84,7 @@ export const LoginPage: React.FC = () => {
                                 style={{ fill: "#EA4335" }}
                             />
                         </svg>
-                        <span className="font-sans font-medium">
+                        <span className="font-mono font-semibold tracking-wide">
                             {loading ? 'cargando...' : 'continuar con Google'}
                         </span>
                     </Button>
@@ -94,7 +97,7 @@ export const LoginPage: React.FC = () => {
 
                     <Button variant="dark" fullWidth className="mb-6 flex items-center justify-center gap-2 h-10" disabled>
                         <Mail className="w-4 h-4 text-zinc-400" />
-                        <span className="font-sans font-medium text-zinc-300">continuar con email</span>
+                        <span className="font-mono font-semibold text-zinc-300 tracking-wide">continuar con email</span>
                     </Button>
 
                     <div className="text-center text-xs md:text-sm text-zinc-500 mb-2">

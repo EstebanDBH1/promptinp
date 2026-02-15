@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'outline' | 'ghost' | 'white' | 'dark';
+  variant?: 'primary' | 'outline' | 'ghost' | 'white' | 'dark' | 'red';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
 }
@@ -14,10 +14,13 @@ export const Button: React.FC<ButtonProps> = ({
   className = '',
   ...props
 }) => {
-  const baseStyles = "inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+  const baseStyles = "inline-flex items-center justify-center font-semibold font-mono transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+
+
 
   const variants = {
     primary: "bg-orange-500 hover:bg-orange-600 text-black border border-transparent focus:ring-orange-500",
+    red: "bg-[#E91212] hover:bg-[#c10f0f] text-white border border-transparent focus:ring-[#E91212]",
     outline: "bg-transparent border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white focus:ring-zinc-500",
     ghost: "bg-transparent text-zinc-400 hover:text-white hover:bg-zinc-800/50",
     white: "bg-white text-black hover:bg-gray-200 border border-transparent",

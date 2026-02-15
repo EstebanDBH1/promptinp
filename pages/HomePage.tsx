@@ -21,7 +21,7 @@ const Stat: React.FC<{ value: string; label: string; color?: string }> = ({
   color = "text-orange-500",
 }) => (
   <div className="text-center">
-    <div className={`text-2xl md:text-3xl font-medium mb-1 ${color}`}>
+    <div className={`text-2xl md:text-3xl font-semibold mb-1 ${color}`}>
       {value}
     </div>
     <div className="text-xs md:text-sm text-zinc-500 tracking-wider">
@@ -144,7 +144,7 @@ export const HomePage: React.FC = () => {
         {/* Hero Section */}
         <section className="w-full max-w-5xl mx-auto px-6 pt-16 pb-24 text-center">
           <Reveal>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 mb-8 hover:border-zinc-700 transition-colors cursor-default">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 mb-8 hover:border-zinc-700 transition-colors cursor-default font-mono font-semibold">
               <span className="text-xs md:text-sm text-zinc-300">
                 biblioteca de prompts exclusiva
               </span>
@@ -153,7 +153,7 @@ export const HomePage: React.FC = () => {
           </Reveal>
 
           <Reveal delay={100}>
-            <div className="text-xs md:text-sm text-zinc-600 mb-8 font-medium">
+            <div className="text-xs md:text-sm text-zinc-600 mb-8 font-semibold font-mono tracking-wide">
               los modelos son mediocres • los prompts VIP los hacen
               excepcionales
             </div>
@@ -170,7 +170,7 @@ export const HomePage: React.FC = () => {
                         */}
 
           <Reveal delay={300}>
-            <h1 className="text-3xl md:text-[48px] font-medium text-white mb-6 leading-tight tracking-tight">
+            <h1 className="text-3xl md:text-[48px] font-semibold text-white mb-6 leading-tight tracking-tight">
               El 100% de la capacidad de tu IA está{" "}
               <span className="text-orange-500">bloqueado</span> tras un mal
               prompt.{" "}
@@ -200,9 +200,7 @@ export const HomePage: React.FC = () => {
                 size="lg"
                 className="w-full sm:w-auto"
                 onClick={() =>
-                  document
-                    .getElementById("pricing")
-                    ?.scrollIntoView({ behavior: "smooth" })
+                  navigate("/pricing")
                 }
               >
                 planes de acceso
@@ -217,16 +215,16 @@ export const HomePage: React.FC = () => {
             <div className="w-full max-w-[1400px] mx-auto">
               <div className="px-6 md:px-8 flex justify-between items-end mb-8 max-w-6xl mx-auto">
                 <div>
-                  <h2 className="text-2xl font-medium text-white mb-1">
+                  <h2 className="text-2xl font-semibold text-white mb-1">
                     prompts destacados
                   </h2>
-                  <p className="text-xs md:text-sm text-zinc-500">
+                  <p className="text-xs md:text-sm text-zinc-500 font-mono font-semibold">
                     curados por expertos en LLMs
                   </p>
                 </div>
                 <Link
                   to="/prompts"
-                  className="text-orange-500 text-xs md:text-sm font-medium hover:text-orange-400 flex items-center gap-1 group"
+                  className="text-orange-500 text-xs md:text-sm font-semibold font-mono hover:text-orange-400 flex items-center gap-1 group tracking-wide"
                 >
                   ver todo{" "}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -246,19 +244,19 @@ export const HomePage: React.FC = () => {
                         className="w-[300px] h-[260px] bg-zinc-900/50 animate-pulse rounded-2xl border border-zinc-800"
                       />
                     ))
-                    : dbPrompts.map((prompt, idx) => (
+                    : dbPrompts.map((prompt) => (
                       <div
                         key={prompt.id}
                         className="w-[300px] snap-center"
-                        style={{ animationDelay: `${idx * 100}ms` }}
                       >
                         <PromptCard prompt={prompt} />
                       </div>
                     ))}
+
                 </div>
               </div>
 
-              <div className="text-center mt-2 text-xs md:text-sm text-zinc-600 font-sans tracking-widest opacity-60">
+              <div className="text-center mt-2 text-xs md:text-sm text-zinc-600 font-mono font-semibold tracking-wide opacity-60">
                 pasa el cursor para pausar
               </div>
             </div>
@@ -275,7 +273,7 @@ export const HomePage: React.FC = () => {
                     <div className="w-8 h-8 rounded bg-zinc-800 flex items-center justify-center">
                       <Sparkles className="w-5 h-5 text-orange-400" />
                     </div>
-                    <h3 className="text-lg font-medium text-white">
+                    <h3 className="text-lg font-semibold text-white">
                       Únete a la Élite
                     </h3>
                   </div>
@@ -290,9 +288,7 @@ export const HomePage: React.FC = () => {
                       variant="primary"
                       size="md"
                       onClick={() =>
-                        document
-                          .getElementById("pricing")
-                          ?.scrollIntoView({ behavior: "smooth" })
+                        navigate("/pricing")
                       }
                     >
                       obtener acceso completo
@@ -314,7 +310,7 @@ export const HomePage: React.FC = () => {
         {/* Features Section */}
         <section className="w-full py-16 px-6">
           <Reveal>
-            <h2 className="text-center text-xl font-medium mb-12">
+            <h2 className="text-center text-xl font-semibold mb-12">
               ¿por qué usar este banco de prompts?
             </h2>
           </Reveal>
@@ -325,7 +321,7 @@ export const HomePage: React.FC = () => {
                   <div className="mb-4 p-2 bg-zinc-900 w-fit rounded-lg group-hover:bg-zinc-800 transition-colors">
                     <feature.icon className="w-5 h-5 text-green-400" />
                   </div>
-                  <h3 className="font-medium text-white mb-2 text-sm md:text-base">
+                  <h3 className="font-semibold text-white mb-2 text-sm md:text-base font-mono">
                     {feature.title}
                   </h3>
                   <p className="text-xs md:text-sm text-zinc-500 leading-relaxed">
@@ -336,6 +332,7 @@ export const HomePage: React.FC = () => {
             ))}
           </div>
         </section>
+
 
         {/* Pricing Section */}
         <section
@@ -348,10 +345,10 @@ export const HomePage: React.FC = () => {
           <div className="relative z-10 max-w-6xl mx-auto">
             <Reveal>
               <div className="text-center mb-16">
-                <h2 className="text-2xl font-medium text-white mb-3">
+                <h2 className="text-2xl font-semibold text-white mb-3">
                   planes transparentes
                 </h2>
-                <p className="text-xs md:text-sm text-zinc-500">
+                <p className="text-xs md:text-sm text-zinc-500 font-mono font-semibold tracking-wide">
                   invierte en mejores resultados, no en más tokens
                 </p>
               </div>
@@ -380,17 +377,17 @@ export const HomePage: React.FC = () => {
                                         `}
                     >
                       {plan.isPopular && (
-                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-black text-xs font-medium px-3 py-1 rounded-full uppercase tracking-wider">
+                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-black text-xs font-semibold px-3 py-1 rounded-full tracking-wide">
                           {isCurrentPlan ? "Tu suscripción" : "recomendado"}
                         </div>
                       )}
 
                       <div className="mb-8">
-                        <h3 className="text-lg font-medium text-white mb-2">
+                        <h3 className="text-lg font-semibold text-white mb-2">
                           {plan.name}
                         </h3>
                         <div className="flex items-baseline gap-1.5 mb-2">
-                          <span className="text-4xl font-medium text-white tracking-tight">
+                          <span className="text-4xl font-semibold text-white tracking-tight">
                             {plan.price}
                           </span>
                           <span className="text-sm font-medium text-zinc-500">
@@ -500,7 +497,7 @@ export const HomePage: React.FC = () => {
         <section className="w-full py-20 px-6">
           <Reveal>
             <div className="text-center mb-12">
-              <h2 className="text-xl font-medium text-white font-mono">
+              <h2 className="text-xl font-semibold text-white font-mono">
                 cómo funciona
               </h2>
             </div>
@@ -514,7 +511,7 @@ export const HomePage: React.FC = () => {
                     {step.id}
                   </div>
                   <div>
-                    <h3 className="text-sm md:text-base font-medium text-white mb-1 group-hover:text-orange-400 transition-colors">
+                    <h3 className="text-sm md:text-base font-semibold text-white mb-1 group-hover:text-orange-400 transition-colors font-mono tracking-tight">
                       {step.title}
                     </h3>
                     <p className="text-xs md:text-sm text-zinc-500">
@@ -530,7 +527,7 @@ export const HomePage: React.FC = () => {
         {/* Bottom CTA */}
         <section className="w-full py-24 px-6 text-center border-t border-white/5 bg-gradient-to-b from-[#050505] to-[#0a0a0a]">
           <Reveal>
-            <h2 className="text-2xl font-medium text-white mb-3">
+            <h2 className="text-2xl font-semibold text-white mb-3 font-mono tracking-tighter">
               domina la ingeniería de prompts
             </h2>
             <p className="text-xs md:text-sm text-zinc-500 mb-8 max-w-md mx-auto">

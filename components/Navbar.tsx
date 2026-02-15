@@ -30,14 +30,18 @@ export const Navbar: React.FC<NavbarProps> = ({ hideNavLinks = false }) => {
     }
   };
 
-  const menuItems = [{ label: "prompts", path: "/prompts" }];
+  const menuItems = [
+    { label: "prompts", path: "/prompts" },
+    { label: "precios", path: "/pricing" },
+  ];
+
 
   return (
     <nav className="w-full py-4 px-6 md:px-8 flex items-center justify-between border-b border-white/5 bg-[#050505]/80 backdrop-blur-md sticky top-0 z-50">
       <div className="flex items-center gap-2">
         <Link to="/" className="flex items-center gap-2 group">
           <Terminal className="w-6 h-6 text-orange-500 group-hover:text-white transition-colors" />
-          <span className="font-medium text-lg tracking-tight">alpacka.ai</span>
+          <span className="font-semibold tracking-tight font-mono">alpacka.ai</span>
         </Link>
       </div>
 
@@ -45,12 +49,12 @@ export const Navbar: React.FC<NavbarProps> = ({ hideNavLinks = false }) => {
         <>
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <div className="flex items-center gap-8 text-sm text-zinc-400">
+            <div className="flex items-center gap-8 text-sm text-zinc-400 font-mono font-semibold">
               {menuItems.map((item) => (
                 <Link
                   key={item.label}
                   to={item.path}
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors font-semibold font-mono"
                 >
                   {item.label}
                 </Link>
@@ -66,7 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({ hideNavLinks = false }) => {
                     </div>
                     <Link
                       to="/settings"
-                      className="text-sm font-medium text-white hover:text-orange-500 transition-colors hidden xl:block"
+                      className="text-sm font-semibold text-white hover:text-orange-500 transition-colors hidden xl:block font-mono"
                     >
                       {user.email?.split("@")[0]}
                     </Link>
@@ -75,14 +79,14 @@ export const Navbar: React.FC<NavbarProps> = ({ hideNavLinks = false }) => {
                   <div className="flex items-center gap-4 text-sm text-zinc-400">
                     <Link
                       to="/prompts"
-                      className="hover:text-white transition-colors flex items-center gap-1.5"
+                      className="hover:text-white transition-colors flex items-center gap-1.5 font-mono font-semibold"
                     >
                       <LayoutDashboard className="w-4 h-4" />
                       mis prompts
                     </Link>
                     <Link
                       to="/settings"
-                      className="hover:text-white transition-colors flex items-center gap-1.5"
+                      className="hover:text-white transition-colors flex items-center gap-1.5 font-mono font-semibold"
                     >
                       <Settings className="w-4 h-4" />
                       ajustes
@@ -99,7 +103,7 @@ export const Navbar: React.FC<NavbarProps> = ({ hideNavLinks = false }) => {
                 <div className="flex items-center gap-6">
                   <Link
                     to="/login"
-                    className="text-sm text-zinc-400 hover:text-white transition-colors"
+                    className="text-sm font-semibold text-zinc-400 hover:text-white transition-colors font-mono"
                   >
                     iniciar sesión
                   </Link>
@@ -155,38 +159,37 @@ export const Navbar: React.FC<NavbarProps> = ({ hideNavLinks = false }) => {
                   {user ? (
                     <div className="flex flex-col gap-4">
                       <div className="flex items-center gap-3 px-2">
-                        <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-black font-medium">
-                          {user.email?.charAt(0).toUpperCase()}
-                        </div>
-                        <span className="text-white font-medium">
-                          {user.email}
+                        <span className="text-white font-semibold font-mono">
+                          {user.email?.split('@')[0]}
                         </span>
                       </div>
                       <Link
                         to="/prompts"
-                        className="flex items-center gap-3 text-zinc-400 hover:text-white px-2 py-2 rounded-lg hover:bg-zinc-900"
+                        className="flex items-center gap-3 text-zinc-400 hover:text-white px-2 py-2 rounded-lg hover:bg-zinc-900 font-mono font-semibold"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         <LayoutDashboard className="w-5 h-5" />
-                        Mis Prompts
+                        mis prompts
                       </Link>
                       <Link
                         to="/settings"
-                        className="flex items-center gap-3 text-zinc-400 hover:text-white px-2 py-2 rounded-lg hover:bg-zinc-900"
+                        className="flex items-center gap-3 text-zinc-400 hover:text-white px-2 py-2 rounded-lg hover:bg-zinc-900 font-mono font-semibold"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         <Settings className="w-5 h-5" />
-                        Ajustes de Cuenta
+                        ajustes
                       </Link>
+
                       <button
                         onClick={handleLogout}
-                        className="flex items-center gap-3 text-red-500 px-2 py-2 rounded-lg hover:bg-red-500/5"
+                        className="flex items-center gap-3 text-red-500 px-2 py-2 rounded-lg hover:bg-red-500/5 font-mono font-semibold"
                       >
                         <LogOut className="w-5 h-5" />
-                        Cerrar Sesión
+                        cerrar sesión
                       </button>
                     </div>
                   ) : (
+
                     <div className="flex flex-col gap-4">
                       <Link to="/login" onClick={() => setIsMenuOpen(false)}>
                         <Button variant="outline" fullWidth>
@@ -212,7 +215,8 @@ export const Navbar: React.FC<NavbarProps> = ({ hideNavLinks = false }) => {
             iniciar sesión
           </Link>
         </div>
-      )}
-    </nav>
+      )
+      }
+    </nav >
   );
 };

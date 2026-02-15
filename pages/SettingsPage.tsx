@@ -29,14 +29,14 @@ export const SettingsPage: React.FC = () => {
                         <div className="p-2 bg-zinc-900 rounded-lg border border-zinc-800">
                             <SettingsIcon className="w-5 h-5 text-zinc-400" />
                         </div>
-                        <h1 className="text-2xl font-medium text-white tracking-tight">Ajustes de Cuenta</h1>
+                        <h1 className="text-2xl font-semibold text-white tracking-tight font-mono">Ajustes de cuenta</h1>
                     </div>
                 </Reveal>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {/* Sidebar navigation could go here, but we'll stick to a single view for now */}
                     <div className="md:col-span-1 border-r border-white/5 space-y-1">
-                        <button className="w-full flex items-center gap-3 px-4 py-2 rounded-lg bg-zinc-900/50 text-white border border-zinc-800">
+                        <button className="w-full flex items-center gap-3 px-4 py-2 rounded-lg bg-zinc-900/50 text-white border border-zinc-800 font-mono font-semibold tracking-wide text-xs">
                             <User className="w-4 h-4" />
                             <span className="text-sm">Perfil</span>
                         </button>
@@ -46,7 +46,7 @@ export const SettingsPage: React.FC = () => {
                         {/* Profile Section */}
                         <Reveal delay={100}>
                             <section className="p-6 rounded-2xl bg-[#0a0a0a] border border-zinc-800">
-                                <h2 className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-6">Información Personal</h2>
+                                <h2 className="text-sm font-semibold text-zinc-500 tracking-wide mb-6 font-mono">Información personal</h2>
                                 <div className="space-y-4">
                                     <div className="flex flex-col gap-1">
                                         <label className="text-xs text-zinc-600">Email</label>
@@ -68,7 +68,7 @@ export const SettingsPage: React.FC = () => {
                         <Reveal delay={200}>
                             <section className="p-6 rounded-2xl bg-[#0a0a0a] border border-zinc-800">
                                 <div className="flex items-center justify-between mb-6">
-                                    <h2 className="text-sm font-medium text-zinc-500 uppercase tracking-widest">Suscripción y Plan</h2>
+                                    <h2 className="text-sm font-semibold text-zinc-500 tracking-wide font-mono">Suscripción y plan</h2>
                                     <Shield className="w-4 h-4 text-orange-500/50" />
                                 </div>
 
@@ -87,13 +87,14 @@ export const SettingsPage: React.FC = () => {
                                                     <CreditCard className="w-6 h-6 text-orange-500" />
                                                 </div>
                                                 <div>
-                                                    <div className="text-xs text-zinc-500 mb-0.5 font-medium uppercase">Plan Actual</div>
-                                                    <div className="text-lg font-medium text-white">
-                                                        {currentPlan ? `${currentPlan.name} — ${currentPlan.price}/${currentPlan.period}` : 'Hobby (Gratis)'}
+                                                    <div className="text-xs text-zinc-500 mb-0.5 font-semibold font-mono tracking-wide">Plan actual</div>
+                                                    <div className="text-lg font-semibold text-white font-mono">
+                                                        {currentPlan ? `${currentPlan.name}` : 'Hobby (Gratis)'}
                                                     </div>
+
                                                 </div>
                                             </div>
-                                            <div className={`px-3 py-1 rounded-full text-[10px] font-medium uppercase tracking-tighter ${subscription?.subscription_status === 'active'
+                                            <div className={`px-3 py-1 rounded-full text-[10px] font-semibold font-mono tracking-tight ${subscription?.subscription_status === 'active'
                                                 ? 'bg-green-500/10 text-green-500 border border-green-500/20'
                                                 : subscription?.subscription_status === 'cancelled'
                                                     ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20'

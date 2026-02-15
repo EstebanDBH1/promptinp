@@ -58,9 +58,21 @@
     h6,
     a,
     button,
-    .font-mono {
-      font-family: 'Geist Mono', monospace;
-      font-weight: 500;
+    label,
+    input,
+    select,
+    textarea,
+    .font-mono,
+    .badge,
+    .pill {
+      font-family: 'Geist Mono', monospace !important;
+      font-weight: 600 !important;
+      /* SemiBold as default for these elements */
+    }
+
+    /* Override weights for normal text in mono if needed */
+    .font-mono-normal {
+      font-weight: 400;
     }
 
     /* Custom scrollbar to match dark theme */
@@ -115,24 +127,6 @@
       animation: pageFadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 
-    /* Scroll Reveal Animation Classes */
-    .reveal-hidden {
-      opacity: 0;
-      filter: blur(4px);
-      transform: translateY(20px);
-      transition:
-        opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-        filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-      will-change: opacity, transform, filter;
-    }
-
-    .reveal-visible {
-      opacity: 1;
-      filter: blur(0);
-      transform: translateY(0);
-    }
-
     /* Hover effects for buttons and cards */
     .hover-lift {
       transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
@@ -141,28 +135,8 @@
     .hover-lift:hover {
       transform: translateY(-2px);
     }
-
-    /* Stagger delays */
-    .delay-100 {
-      transition-delay: 100ms;
-    }
-
-    .delay-150 {
-      transition-delay: 150ms;
-    }
-
-    .delay-200 {
-      transition-delay: 200ms;
-    }
-
-    .delay-300 {
-      transition-delay: 300ms;
-    }
-
-    .delay-400 {
-      transition-delay: 400ms;
-    }
   </style>
+
   <script type="importmap">
 {
   "imports": {
